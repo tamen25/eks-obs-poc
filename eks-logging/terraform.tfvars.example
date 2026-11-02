@@ -1,7 +1,7 @@
 # Copy to terraform.tfvars and adjust. Only the first three are required; everything else
 # shows the default or a common change.
 
-cluster_name = "cloudops-dev-cluster"
+cluster_name = "your-eks-cluster-name"
 aws_region   = "us-east-1"
 environment  = "dev"
 

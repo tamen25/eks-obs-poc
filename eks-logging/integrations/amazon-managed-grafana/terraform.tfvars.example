@@ -7,7 +7,7 @@ workspace_id = "g-0123456789"
 # From the eks-logging stack: terraform output amazon_managed_grafana
 loki = {
   url  = "https://loki.internal.example.com:8080"
-  user = "cloudops-dev-cluster"
+  user = "your-eks-cluster-name"
   # Only when amazon_managed_grafana.needs_ca_cert is true:
   #   terraform -chdir=../.. output -raw loki_ca_cert_pem
   ca_cert_pem = <<-EOT
