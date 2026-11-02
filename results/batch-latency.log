@@ -1,0 +1,391 @@
+== scenario api-eviction-fast  run=cb7ab260  pod=api-eviction-fast-cb7ab260
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-cb7ab260" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 67 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           70     67    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-cb7ab260"}
+  fluent-bit-defaults      0      0    0       67  ['1-67'] []
+  promtail-sd          70     67    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-cb7ab260"}
+  promtail-static      70     67    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-cb7ab260"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-cb7ab260 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=504eda9e  pod=api-eviction-fast-504eda9e
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-504eda9e" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-504eda9e"}
+  fluent-bit-defaults      0      0    0      100  ['1-100'] []
+  promtail-sd         103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-504eda9e"}
+  promtail-static     103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-504eda9e"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-504eda9e to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=231e061b  pod=api-eviction-fast-231e061b
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-231e061b" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 96 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-231e061b"}
+  fluent-bit-defaults      0      0    0       96  ['1-96'] []
+  promtail-sd          99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-231e061b"}
+  promtail-static      99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-231e061b"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-231e061b to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=181ff938  pod=api-eviction-fast-181ff938
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-181ff938" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-181ff938"}
+  fluent-bit-defaults      0      0    0       95  ['1-95'] []
+  promtail-sd          98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-181ff938"}
+  promtail-static      98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-181ff938"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-181ff938 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=bdc8760d  pod=api-eviction-fast-bdc8760d
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-bdc8760d" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 97 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-bdc8760d"}
+  fluent-bit-defaults    100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {}
+  promtail-sd         100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-bdc8760d"}
+  promtail-static     100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-bdc8760d"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-bdc8760d to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario kubelet-ephemeral-fast  run=31c9e22f  pod=kubelet-ephemeral-fast-31c9e22f
+   Ephemeral-storage eviction right after start; the pod object stays, so files stay too.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=31c9e22f event=SIGTERM last_seq=682', 'run=31c9e22f seq=683 phase=shutdown', 'run=31c9e22f seq=684 phase=shutdown'], 'container_id': 'containerd://35231332f8be18ff35f3def3c5092cc0155ace65142c0d1e3c40a82073a7673a'} logs=FAILED: unable to retrieve container logs for containerd://35231332f8be18ff35f3def3c5092cc0155ace65142c0d1e3c40a82073a7673a files=pod dir present, 0 log file(s)
+  [evicted+58s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=31c9e22f event=SIGTERM last_seq=682', 'run=31c9e22f seq=683 phase=shutdown', 'run=31c9e22f seq=684 phase=shutdown'], 'container_id': 'containerd://35231332f8be18ff35f3def3c5092cc0155ace65142c0d1e3c40a82073a7673a'} logs=FAILED: unable to retrieve container logs for containerd://35231332f8be18ff35f3def3c5092cc0155ace65142c0d1e3c40a82073a7673a files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 684 seq lines, events=['start', 'fill-start', 'fill-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          689    684    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-31c9e22f"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  fluent-bit-defaults      1      1    0      683  ['1-675', '677-684'] ['SIGTERM']
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  promtail-sd         689    684    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-31c9e22f"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  promtail-static     689    684    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-31c9e22f"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/kubelet-ephemeral-fast-31c9e22f to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. 
+    - Killing: Stopping container app
+== scenario kubelet-ephemeral-fast  run=38801036  pod=kubelet-ephemeral-fast-38801036
+   Ephemeral-storage eviction right after start; the pod object stays, so files stay too.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'ContainerStatusUnknown', 'term_message_tail': ['The container could not be located when the pod was deleted.  The container used to be Running'], 'container_id': None} logs=FAILED: Error from server (BadRequest): container "app" in pod "kubelet-ephemeral-fast-38801036" is terminated files=pod dir present, 0 log file(s)
+  [evicted+33s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'ContainerStatusUnknown', 'term_message_tail': ['The container could not be located when the pod was terminated'], 'container_id': None} logs=FAILED: Error from server (BadRequest): container "app" in pod "kubelet-ephemeral-fast-38801036" is terminated files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 234 seq lines, events=['start', 'fill-start', 'fill-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          238    234    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-38801036"}
+  fluent-bit-defaults      0      0    0      234  ['1-234'] []
+  promtail-sd         238    234    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-38801036"}
+  promtail-static     238    234    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-38801036"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/kubelet-ephemeral-fast-38801036 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. 
+    - Killing: Stopping container app
+== scenario kubelet-ephemeral-fast  run=e0e1fba7  pod=kubelet-ephemeral-fast-e0e1fba7
+   Ephemeral-storage eviction right after start; the pod object stays, so files stay too.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['Error on reading termination message from logs: failed to try resolving symlinks in path "/var/log/pods/evict-test_kubelet-ephemeral-fast-e0e1fba7_d7fc638b-5dcf-4e6b-95ca-e3e7c70e1577/app/0.log": lstat /var/log/pods/evict-test_kubelet-ephemeral-fast-e0e1fba7_d7fc638b-5dcf-4e6b-95ca-e3e7c70e1577: no such file or directory'], 'container_id': 'containerd://f5cbbc10f8a821ffb578a5a773d02345fdea59c9d364de5d2c093e3e74e48109'} logs=FAILED: failed to try resolving symlinks in path "/var/log/pods/evict-test_kubelet-ephemeral-fast-e0e1fba7_d7fc638b-5dcf-4e6b-95ca-e3e7c70e1577/app/0.log": lstat /var/l files=pod dir GONE, 0 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['Error on reading termination message from logs: failed to try resolving symlinks in path "/var/log/pods/evict-test_kubelet-ephemeral-fast-e0e1fba7_d7fc638b-5dcf-4e6b-95ca-e3e7c70e1577/app/0.log": lstat /var/log/pods/evict-test_kubelet-ephemeral-fast-e0e1fba7_d7fc638b-5dcf-4e6b-95ca-e3e7c70e1577: no such file or directory'], 'container_id': 'containerd://f5cbbc10f8a821ffb578a5a773d02345fdea59c9d364de5d2c093e3e74e48109'} logs=FAILED: unable to retrieve container logs for containerd://f5cbbc10f8a821ffb578a5a773d02345fdea59c9d364de5d2c093e3e74e48109 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 616 seq lines, events=['start', 'fill-start', 'fill-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          620    616    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-e0e1fba7"}
+  fluent-bit-defaults      0      0    0      616  ['1-616'] []
+  promtail-sd         620    616    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-e0e1fba7"}
+  promtail-static     620    616    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-e0e1fba7"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/kubelet-ephemeral-fast-e0e1fba7 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. 
+    - Killing: Stopping container app
+== scenario kubelet-ephemeral-fast  run=8eefe66d  pod=kubelet-ephemeral-fast-8eefe66d
+   Ephemeral-storage eviction right after start; the pod object stays, so files stay too.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=8eefe66d event=SIGTERM last_seq=618', 'run=8eefe66d seq=619 phase=shutdown', 'run=8eefe66d seq=620 phase=shutdown'], 'container_id': 'containerd://5b6e685bf2850dd8772a4ef0b63f0a188f821456278feac49c76171cf19fe11c'} logs=FAILED: failed to try resolving symlinks in path "/var/log/pods/evict-test_kubelet-ephemeral-fast-8eefe66d_b98180b3-38ec-43bf-aea5-193c5f40c285/app/0.log": lstat /var/l files=pod dir present, 0 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=8eefe66d event=SIGTERM last_seq=618', 'run=8eefe66d seq=619 phase=shutdown', 'run=8eefe66d seq=620 phase=shutdown'], 'container_id': 'containerd://5b6e685bf2850dd8772a4ef0b63f0a188f821456278feac49c76171cf19fe11c'} logs=FAILED: unable to retrieve container logs for containerd://5b6e685bf2850dd8772a4ef0b63f0a188f821456278feac49c76171cf19fe11c files=pod dir present, 0 log file(s)
+  [evicted+27s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=8eefe66d event=SIGTERM last_seq=618', 'run=8eefe66d seq=619 phase=shutdown', 'run=8eefe66d seq=620 phase=shutdown'], 'container_id': 'containerd://5b6e685bf2850dd8772a4ef0b63f0a188f821456278feac49c76171cf19fe11c'} logs=FAILED: unable to retrieve container logs for containerd://5b6e685bf2850dd8772a4ef0b63f0a188f821456278feac49c76171cf19fe11c files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 620 seq lines, events=['start', 'fill-start', 'fill-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          625    620    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-8eefe66d"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  fluent-bit-defaults    625    620    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-8eefe66d"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  promtail-sd         625    620    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-8eefe66d"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  promtail-static     625    620    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-8eefe66d"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/kubelet-ephemeral-fast-8eefe66d to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. 
+    - Killing: Stopping container app
+== scenario kubelet-ephemeral-fast  run=6e0e216e  pod=kubelet-ephemeral-fast-6e0e216e
+   Ephemeral-storage eviction right after start; the pod object stays, so files stay too.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=6e0e216e event=SIGTERM last_seq=135', 'run=6e0e216e seq=136 phase=shutdown', 'run=6e0e216e seq=137 phase=shutdown'], 'container_id': 'containerd://e5280f4a3bd1f674758a8dd15203409e495a6f2f7f7456339d70ae8750ac0e25'} logs=ok, 137 seq lines (last seq=137) files=pod dir present, 1 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=6e0e216e event=SIGTERM last_seq=135', 'run=6e0e216e seq=136 phase=shutdown', 'run=6e0e216e seq=137 phase=shutdown'], 'container_id': 'containerd://e5280f4a3bd1f674758a8dd15203409e495a6f2f7f7456339d70ae8750ac0e25'} logs=FAILED: unable to retrieve container logs for containerd://e5280f4a3bd1f674758a8dd15203409e495a6f2f7f7456339d70ae8750ac0e25 files=pod dir present, 0 log file(s)
+  [evicted+5s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=6e0e216e event=SIGTERM last_seq=135', 'run=6e0e216e seq=136 phase=shutdown', 'run=6e0e216e seq=137 phase=shutdown'], 'container_id': 'containerd://e5280f4a3bd1f674758a8dd15203409e495a6f2f7f7456339d70ae8750ac0e25'} logs=FAILED: unable to retrieve container logs for containerd://e5280f4a3bd1f674758a8dd15203409e495a6f2f7f7456339d70ae8750ac0e25 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 137 seq lines, events=['start', 'fill-start', 'fill-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          142    137    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-6e0e216e"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  fluent-bit-defaults      1      1    0      136  ['1-128', '130-137'] ['SIGTERM']
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  promtail-sd         142    137    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-6e0e216e"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  promtail-static     142    137    1        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "kubelet-ephemeral-fast-6e0e216e"}
+                   labels {"container": "watch", "namespace": "logging", "pod": "pod-lifecycle-5dcc4498bd-t9sz5"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/kubelet-ephemeral-fast-6e0e216e to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. 
+    - Killing: Stopping container app
+== scenario api-eviction  run=433126dc  pod=api-eviction-433126dc
+   Eviction API (kubectl drain / autoscaler): graceful SIGTERM, then the pod object is deleted.
+  [running] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': False, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://89ca002a87114e4cb1453f54c9d8778bdc6ce63b1be2d062598fbfdab1fa918d'} logs=ok, 108 seq lines (last seq=108) files=pod dir present, 1 log file(s)
+  [evict+2s] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': True, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://89ca002a87114e4cb1453f54c9d8778bdc6ce63b1be2d062598fbfdab1fa918d'} logs=ok, 112 seq lines (last seq=112) files=pod dir present, 1 log file(s)
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-433126dc" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  [deleted+3s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-433126dc" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 114 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          117    114    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-433126dc"}
+  fluent-bit-defaults      0      0    0      114  ['1-114'] []
+  promtail-sd         117    114    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-433126dc"}
+  promtail-static     117    114    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-433126dc"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-433126dc to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction  run=fd0c1a8b  pod=api-eviction-fd0c1a8b
+   Eviction API (kubectl drain / autoscaler): graceful SIGTERM, then the pod object is deleted.
+  [running] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': False, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://7da76e934bbfc0d2ea83e01afb1dd7c22cfa96f18b964efcdcec9ea75300a058'} logs=ok, 102 seq lines (last seq=102) files=pod dir present, 1 log file(s)
+  [evict+2s] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': True, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://7da76e934bbfc0d2ea83e01afb1dd7c22cfa96f18b964efcdcec9ea75300a058'} logs=ok, 107 seq lines (last seq=107) files=pod dir present, 1 log file(s)
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fd0c1a8b" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  [deleted+3s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fd0c1a8b" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 109 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          112    109    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fd0c1a8b"}
+  fluent-bit-defaults      0      0    0      109  ['1-109'] []
+  promtail-sd         112    109    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fd0c1a8b"}
+  promtail-static     112    109    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fd0c1a8b"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fd0c1a8b to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction  run=7a2b5d8f  pod=api-eviction-7a2b5d8f
+   Eviction API (kubectl drain / autoscaler): graceful SIGTERM, then the pod object is deleted.
+  [running] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': False, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://7d8af3383ebd1e3b0453e956c05df007b489d1deb267992e63c2e6e95c6bf40b'} logs=ok, 102 seq lines (last seq=102) files=pod dir present, 1 log file(s)
+  [evict+2s] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': True, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://7d8af3383ebd1e3b0453e956c05df007b489d1deb267992e63c2e6e95c6bf40b'} logs=ok, 106 seq lines (last seq=106) files=pod dir present, 1 log file(s)
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-7a2b5d8f" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  [deleted+3s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-7a2b5d8f" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 108 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-7a2b5d8f"}
+  fluent-bit-defaults    111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-7a2b5d8f"}
+  promtail-sd         111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-7a2b5d8f"}
+  promtail-static     111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-7a2b5d8f"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-7a2b5d8f to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction  run=95de4dd4  pod=api-eviction-95de4dd4
+   Eviction API (kubectl drain / autoscaler): graceful SIGTERM, then the pod object is deleted.
+  [running] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': False, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://8ebfabaca0fd26248373b9adc79d1e665978a8d589d552f976fbe71a694ed4bb'} logs=ok, 103 seq lines (last seq=103) files=pod dir present, 1 log file(s)
+  [evict+2s] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': True, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://8ebfabaca0fd26248373b9adc79d1e665978a8d589d552f976fbe71a694ed4bb'} logs=ok, 107 seq lines (last seq=107) files=pod dir present, 1 log file(s)
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-95de4dd4" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  [deleted+3s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-95de4dd4" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 109 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          112    109    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-95de4dd4"}
+  fluent-bit-defaults      0      0    0      109  ['1-109'] []
+  promtail-sd         112    109    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-95de4dd4"}
+  promtail-static     112    109    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-95de4dd4"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-95de4dd4 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction  run=3b544198  pod=api-eviction-3b544198
+   Eviction API (kubectl drain / autoscaler): graceful SIGTERM, then the pod object is deleted.
+  [running] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': False, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://c793933a72d3189c763d619d97c1c01ea2c91318a0dc13e313ee94922611a28d'} logs=ok, 102 seq lines (last seq=102) files=pod dir present, 1 log file(s)
+  [evict+2s] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': True, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://c793933a72d3189c763d619d97c1c01ea2c91318a0dc13e313ee94922611a28d'} logs=ok, 106 seq lines (last seq=106) files=pod dir present, 1 log file(s)
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-3b544198" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  [deleted+3s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-3b544198" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 108 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-3b544198"}
+  fluent-bit-defaults      0      0    0      108  ['1-108'] []
+  promtail-sd         111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-3b544198"}
+  promtail-static     111    108    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-3b544198"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-3b544198 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+
+#### api-eviction-fast: 5 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  5/5                0 of 455                        0
+  fluent-bit-defaults         1/5              358 of 455                        4
+  promtail-sd                 5/5                0 of 455                        0
+  promtail-static             5/5                0 of 455                        0
+
+#### kubelet-ephemeral-fast: 5 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  5/5                0 of 2291                       0
+  fluent-bit-defaults         1/5             1669 of 2291                       2
+  promtail-sd                 5/5                0 of 2291                       0
+  promtail-static             5/5                0 of 2291                       0
+
+#### api-eviction: 5 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  5/5                0 of 548                        0
+  fluent-bit-defaults         1/5              440 of 548                        4
+  promtail-sd                 5/5                0 of 548                        0
+  promtail-static             5/5                0 of 548                        0
+== scenario api-eviction-slow  run=dd95832a  pod=api-eviction-slow-dd95832a
+   Pod lives ~90s before an API eviction: long enough for a 60s refresh_interval to find it.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-slow-dd95832a" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 452 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          455    452    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-slow-dd95832a"}
+  fluent-bit-defaults    455    452    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-slow-dd95832a"}
+  promtail-sd         455    452    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-slow-dd95832a"}
+  promtail-static     455    452    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-slow-dd95832a"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-slow-dd95832a to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+
+#### api-eviction-slow: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 452                        0
+  fluent-bit-defaults         1/1                0 of 452                        0
+  promtail-sd                 1/1                0 of 452                        0
+  promtail-static             1/1                0 of 452                        0

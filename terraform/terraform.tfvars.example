@@ -1,0 +1,90 @@
+# Copy to terraform.tfvars and adjust. Only the first three are required; everything else
+# shows the default or a common change.
+
+cluster_name = "cloudops-dev-cluster"
+aws_region   = "us-east-1"
+environment  = "dev"
+
+tags = {
+  team        = "platform"
+  cost-center = "observability"
+}
+
+# IAM role used for `aws eks get-token` (needs cluster-admin through an EKS access entry).
+# kubernetes_auth_role_arn = "arn:aws:iam::123456789012:role/platform-eks-admin"
+
+# "irsa" (default, documented by Grafana) or "pod_identity" (needs the eks-pod-identity-agent add-on).
+aws_identity_mode = "irsa"
+
+loki = {
+  deployment_mode     = "Monolithic"
+  monolithic_replicas = 3
+  retention_period    = "744h" # 31 days
+
+  limits = {
+    ingestion_rate_mb       = 16
+    ingestion_burst_size_mb = 32
+    max_line_size           = "256KB"
+  }
+
+  # Dedicated nodes for Loki, if you have them.
+  # node_selector = { "workload" = "observability" }
+  # tolerations   = [{ key = "workload", operator = "Equal", value = "observability", effect = "NoSchedule" }]
+}
+
+loki_storage = {
+  # Restrict bucket data access to the VPC's S3 gateway endpoint; keep the Terraform role exempt.
+  # allowed_vpc_endpoint_ids = ["vpce-0123456789abcdef0"]
+  # admin_principal_arns     = ["arn:aws:iam::123456789012:role/terraform"]
+  # access_log_bucket        = "central-s3-access-logs-123456789012"
+}
+
+fluent_bit = {
+  refresh_interval   = 2
+  rotate_wait        = 300
+  exclude_namespaces = []
+  extra_labels       = {} # low-cardinality only, for example { env = "dev" }
+}
+
+# Agents forward to an aggregator tier, so a slow Loki builds backlog off the nodes.
+aggregator = {
+  enabled = false
+}
+
+# Keep logs of evicted, force-deleted and short-lived pods readable after the kubelet deletes
+# them. Build and push images/log-keeper first.
+log_keeper = {
+  enabled = false
+  # image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/log-keeper:1.0.0"
+}
+
+grafana = {
+  enabled          = true
+  cloudwatch_audit = false # needs EKS control plane audit logging to CloudWatch
+  # root_url       = "https://grafana.internal.example.com"
+  # ingress = {
+  #   enabled = true
+  #   host    = "grafana.internal.example.com"
+  #   annotations = {
+  #     "alb.ingress.kubernetes.io/scheme"          = "internal"
+  #     "alb.ingress.kubernetes.io/target-type"     = "ip"
+  #     "alb.ingress.kubernetes.io/certificate-arn" = "arn:aws:acm:us-east-1:123456789012:certificate/..."
+  #     "alb.ingress.kubernetes.io/listen-ports"    = "[{\"HTTPS\":443}]"
+  #   }
+  # }
+  # ini_overrides = {
+  #   "auth.generic_oauth" = { enabled = true, name = "SSO", client_id = "...", auth_url = "...", token_url = "...", api_url = "..." }
+  # }
+}
+
+internal_tls = {
+  enabled = true
+}
+
+# Only enforced when the CNI supports NetworkPolicy (VPC CNI: enableNetworkPolicy = "true").
+network_policies = {
+  enabled = false
+  # node_cidr_blocks            = ["10.0.0.0/16"]
+  # monitoring_namespaces       = ["monitoring"]
+  # grafana_ingress_cidr_blocks = ["10.0.0.0/16"]
+}

@@ -1,0 +1,170 @@
+{
+  "truth_seq": 300099,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 300103,
+      "unique_seq": 300099,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300099,
+      "missing_ranges": [
+        "1-300099"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 215167,
+      "unique_seq": 215166,
+      "duplicates": 0,
+      "missing": 84933,
+      "missing_ranges": [
+        "1-55676",
+        "270837-300093"
+      ],
+      "events": [
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 244425,
+      "unique_seq": 244423,
+      "duplicates": 0,
+      "missing": 55676,
+      "missing_ranges": [
+        "1-55676"
+      ],
+      "events": [
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 244425,
+      "unique_seq": 244423,
+      "duplicates": 0,
+      "missing": 55676,
+      "missing_ranges": [
+        "1-55676"
+      ],
+      "events": [
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 300103,
+      "unique_seq": 300099,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 244425,
+      "unique_seq": 244423,
+      "duplicates": 0,
+      "missing": 55676,
+      "missing_ranges": [
+        "1-55676"
+      ],
+      "events": [
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 300103,
+      "unique_seq": 300099,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-41e9d07b\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/slow-reader-drain-41e9d07b to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "slow-reader-drain",
+  "run": "41e9d07b",
+  "pod": "slow-reader-drain-41e9d07b",
+  "uid": "268f2754-1621-49ad-991e-8d635afce2a2",
+  "observations": [
+    {
+      "t": "evicted+5s fb-proof open deleted files",
+      "files": []
+    },
+    {
+      "t": "evicted+20s fb-proof open deleted files",
+      "files": []
+    },
+    {
+      "t": "evicted+60s fb-proof open deleted files",
+      "files": []
+    }
+  ],
+  "at": "2026-10-23T11:43:31.935024+00:00"
+}

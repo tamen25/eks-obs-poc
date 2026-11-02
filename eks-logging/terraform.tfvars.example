@@ -1,0 +1,125 @@
+# Copy to terraform.tfvars and adjust. Only the first three are required; everything else
+# shows the default or a common change.
+
+cluster_name = "cloudops-dev-cluster"
+aws_region   = "us-east-1"
+environment  = "dev"
+
+tags = {
+  team        = "platform"
+  cost-center = "observability"
+}
+
+# IAM role used for `aws eks get-token` (needs cluster-admin through an EKS access entry).
+# kubernetes_auth_role_arn = "arn:aws:iam::123456789012:role/platform-eks-admin"
+
+# "irsa" (default, documented by Grafana) or "pod_identity" (needs the eks-pod-identity-agent add-on).
+aws_identity_mode = "irsa"
+
+############################################################################################
+# Loki
+############################################################################################
+
+loki = {
+  enabled         = true
+  namespace       = "loki" # set to "logging" to share the agents' namespace
+  deployment_mode = "Monolithic"
+
+  # Every log lives on one volume, so the two have to fit together: 100Gi holds about 13 days
+  # of 50 GB/day raw logs. A full volume stops ingestion.
+  retention_period = "168h"
+  persistence_size = "100Gi"
+
+  storage = {
+    # One EBS volume and one replica; no S3 bucket, KMS key or IAM role.
+    backend = "filesystem"
+
+    # For S3 instead (README, "Where logs live"): backend = "s3", retention_period = "2160h"
+    # (90 days: 30 hot in S3 Standard, 60 warm in Glacier Instant Retrieval), and optionally:
+    # tiering = {
+    #   hot_days           = 30
+    #   warm_storage_class = "GLACIER_IR"
+    #   # Compliance archive Loki cannot query without a restore. Needs a longer retention.
+    #   archive = { enabled = true, storage_class = "DEEP_ARCHIVE", after_days = 365 }
+    # }
+    # Restrict bucket data access to the VPC's S3 gateway endpoint; keep the Terraform role exempt.
+    # allowed_vpc_endpoint_ids = ["vpce-0123456789abcdef0"]
+    # admin_principal_arns     = ["arn:aws:iam::123456789012:role/terraform"]
+    # access_log_bucket        = "central-s3-access-logs-123456789012"
+  }
+
+  # Reach Loki from Amazon Managed Grafana through an internal NLB (AWS Load Balancer Controller).
+  # gateway = {
+  #   service = {
+  #     type = "LoadBalancer"
+  #     annotations = {
+  #       "service.beta.kubernetes.io/aws-load-balancer-type"            = "external"
+  #       "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type" = "ip"
+  #       "service.beta.kubernetes.io/aws-load-balancer-scheme"          = "internal"
+  #     }
+  #   }
+  #   extra_dns_names = ["loki.internal.example.com"]
+  # }
+
+  limits = {
+    ingestion_rate_mb       = 16
+    ingestion_burst_size_mb = 32
+    max_line_size           = "256KB"
+  }
+}
+
+############################################################################################
+# Fluent Bit
+############################################################################################
+
+fluent_bit = {
+  enabled            = true
+  namespace          = "logging"
+  refresh_interval   = 0.5 # seconds between scans for new log files
+  rotate_wait        = 300
+  exclude_namespaces = []
+  extra_labels       = {} # low-cardinality only, for example { env = "dev" }
+
+  # Agents forward to an aggregator tier, so a node crash loses about 0.5s instead of the backlog.
+  aggregator = { enabled = false }
+
+  # kubelet, container runtime and kernel messages from each node's journal, as job="node"
+  # streams. The path is right for EKS AL2023; kind and some distros use /run/log/journal.
+  node_logs = {
+    enabled      = true
+    journal_path = "/var/log/journal"
+    units        = ["kubelet.service", "containerd.service"]
+    kernel       = true
+  }
+
+  # Keep logs of evicted, force-deleted and short-lived pods readable after the kubelet
+  # deletes them. Build and push images/log-keeper first.
+  log_keeper = {
+    enabled = false
+    # image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/log-keeper:1.0.0"
+  }
+}
+
+############################################################################################
+# Grafana in the cluster. Set enabled = false to use Amazon Managed Grafana instead
+# (integrations/amazon-managed-grafana). Turning it off later deletes its namespace and volume.
+############################################################################################
+
+grafana = {
+  enabled = true
+}
+
+############################################################################################
+# Security
+############################################################################################
+
+internal_tls = {
+  enabled = true
+}
+
+# On by default and generated from the components. Needs enableNetworkPolicy = "true" on the
+# vpc-cni add-on to be enforced (plan warns otherwise).
+network_policies = {
+  enabled = true
+  # monitoring_namespaces = ["monitoring"]
+}

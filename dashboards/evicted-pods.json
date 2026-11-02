@@ -1,0 +1,125 @@
+{
+  "uid": "evicted-pods",
+  "title": "Evicted pod logs",
+  "description": "Eviction events from the Kubernetes API next to the logs each shipper captured for the evicted pod.",
+  "tags": ["kubernetes", "loki", "eviction"],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "time": {"from": "now-1h", "to": "now"},
+  "refresh": "30s",
+  "templating": {
+    "list": [
+      {
+        "name": "namespace",
+        "label": "Namespace",
+        "type": "query",
+        "datasource": {"type": "loki", "uid": "loki"},
+        "query": {"type": 1, "label": "namespace", "stream": "{shipper=~\"fluent-bit|promtail.*|alloy|vector\"}", "refId": "ns"},
+        "refresh": 2,
+        "current": {"text": "evict-test", "value": "evict-test"}
+      },
+      {
+        "name": "pod",
+        "label": "Pod",
+        "type": "query",
+        "datasource": {"type": "loki", "uid": "loki"},
+        "query": {"type": 1, "label": "pod", "stream": "{namespace=\"$namespace\", shipper=~\"fluent-bit|promtail.*|alloy|vector\"}", "refId": "pod"},
+        "refresh": 2,
+        "sort": 2
+      },
+      {
+        "name": "shipper",
+        "label": "Shipper",
+        "type": "custom",
+        "query": "fluent-bit,alloy,vector,promtail-sd,promtail-static,fluent-bit-defaults",
+        "current": {"text": "fluent-bit", "value": "fluent-bit"}
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Kubelet evictions per namespace",
+      "description": "Counts Evicted events from the kubelet (node pressure, ephemeral-storage limits). Eviction-API evictions (drain, autoscaler, Karpenter) emit no Evicted event; see the Killing panel.",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "sum by (namespace) (count_over_time({job=\"k8s-events\", reason=\"Evicted\"}[$__auto]))", "legendFormat": "{{namespace}}"}
+      ],
+      "fieldConfig": {"defaults": {"custom": {"drawStyle": "bars", "fillOpacity": 60}, "unit": "short"}, "overrides": []}
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "Eviction and termination events",
+      "description": "Evicted = kubelet eviction. Killing without a preceding Evicted = API deletion or eviction (drain, autoscaler, rollout). Preempting / TaintManagerEviction = scheduler and taint evictions.",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{job=\"k8s-events\", reason=~\"Evicted|Killing|Preempting|TaintManagerEviction|EvictionThresholdMet|FreeDiskSpaceFailed\"} | json | line_format \"{{.reason}}  {{.kind}}/{{.involvedObject_name}}  {{.message}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "Last lines of $pod ($shipper)",
+      "description": "Newest first. The SIGTERM / exit lines at the top are what a slow shipper loses.",
+      "gridPos": {"x": 0, "y": 8, "w": 16, "h": 14},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{namespace=\"$namespace\", pod=\"$pod\", shipper=\"$shipper\"}", "maxLines": 200}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    },
+    {
+      "id": 4,
+      "type": "bargauge",
+      "title": "Lines received for $pod, by shipper",
+      "description": "Same pod, different shippers. A shorter bar is lines that shipper lost.",
+      "gridPos": {"x": 16, "y": 8, "w": 8, "h": 7},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "sum by (shipper) (count_over_time({namespace=\"$namespace\", pod=\"$pod\"}[$__range]))", "queryType": "instant", "legendFormat": "{{shipper}}"}
+      ],
+      "options": {"orientation": "horizontal", "displayMode": "basic", "showUnfilled": true},
+      "fieldConfig": {"defaults": {"unit": "short", "min": 0}, "overrides": []}
+    },
+    {
+      "id": 5,
+      "type": "logs",
+      "title": "Kubernetes events for $pod",
+      "gridPos": {"x": 16, "y": 15, "w": 8, "h": 7},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{job=\"k8s-events\", namespace=\"$namespace\"} |= \"$pod\" | json | line_format \"{{.reason}}: {{.message}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true}
+    },
+    {
+      "id": 6,
+      "type": "logs",
+      "title": "Eviction API calls (audit log)",
+      "description": "Every pods/eviction request from the API server audit log: 201 = evicted, 429 = refused by a PodDisruptionBudget. The only record of who drained or evicted a pod.",
+      "gridPos": {"x": 0, "y": 22, "w": 12, "h": 9},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{job=\"k8s-audit\"} |= \"eviction\" | json | line_format \"{{.responseStatus_code}}  {{.user_username}} evicted {{.namespace}}/{{.objectRef_name}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    },
+    {
+      "id": 7,
+      "type": "logs",
+      "title": "Pod terminal state from the API (pod-lifecycle)",
+      "description": "Written by the pod-lifecycle watcher, independent of the log files. disruption = EvictionByEvictionAPI | TerminationByKubelet | PreemptionByScheduler | DeletionByTaintManager. 'last lines' is the container termination message (FallbackToLogsOnError), which survives when the log file does not.",
+      "gridPos": {"x": 12, "y": 22, "w": 12, "h": 9},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{container=\"watch\", shipper=\"fluent-bit\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", last=\"containers[0].lastLines\" | ns=\"$namespace\" | phase=\"Failed\" or lifecycle=\"DELETED\" | line_format \"{{.lifecycle}} {{.pod_name}} phase={{.phase}} reason={{.reason}} disruption={{.disruption}} {{.msg}} | last lines: {{.last}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    }
+  ]
+}

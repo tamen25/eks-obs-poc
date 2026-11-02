@@ -1,0 +1,368 @@
+{
+  "truth_seq": 12440,
+  "truth_events": [
+    "start",
+    "start"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 16091,
+      "unique_seq": 12375,
+      "duplicates": 3714,
+      "missing": 65,
+      "missing_ranges": [
+        "12376-12440"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 12320,
+      "unique_seq": 12320,
+      "duplicates": 0,
+      "missing": 120,
+      "missing_ranges": [
+        "1-55",
+        "12376-12440"
+      ],
+      "events": [],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 16090,
+      "unique_seq": 12467,
+      "duplicates": 3621,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-keep": {
+      "lines": 16183,
+      "unique_seq": 12467,
+      "duplicates": 3714,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-via-agg": {
+      "lines": 16091,
+      "unique_seq": 12375,
+      "duplicates": 3714,
+      "missing": 65,
+      "missing_ranges": [
+        "12376-12440"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 16108,
+      "unique_seq": 12408,
+      "duplicates": 3698,
+      "missing": 32,
+      "missing_ranges": [
+        "12409-12440"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 16205,
+      "unique_seq": 12507,
+      "duplicates": 3696,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 15372,
+      "unique_seq": 12491,
+      "duplicates": 2879,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 16212,
+      "unique_seq": 12551,
+      "duplicates": 3659,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 16278,
+      "unique_seq": 12562,
+      "duplicates": 3714,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/node-crash-loki-down-1dae7858 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "NodeNotReady: Node is not ready",
+    "SandboxChanged: Pod sandbox changed, it will be killed and re-created.",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "TaintManagerEviction: Cancelling deletion of Pod evict-test/node-crash-loki-down-1dae7858"
+  ],
+  "scenario": "node-crash-loki-down",
+  "run": "1dae7858",
+  "pod": "node-crash-loki-down-1dae7858",
+  "uid": "28dcf05c-79ca-459d-999f-e8001412186a",
+  "observations": [
+    {
+      "t": "node down (spot loss)",
+      "score": {
+        "truth_seq": 3714,
+        "truth_events": [
+          "start"
+        ],
+        "truth_long_lines": {},
+        "shippers": {
+          "fluent-bit": {
+            "lines": 3209,
+            "unique_seq": 3208,
+            "duplicates": 0,
+            "missing": 506,
+            "missing_ranges": [
+              "1919-2010",
+              "2932-3024",
+              "3302-3485",
+              "3578-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "fluent-bit-defaults": {
+            "lines": 0,
+            "unique_seq": 0,
+            "duplicates": 0,
+            "missing": 3714,
+            "missing_ranges": [
+              "1-3714"
+            ],
+            "events": [],
+            "label_sets": [],
+            "long_lines": {}
+          },
+          "fb-proof": {
+            "lines": 2683,
+            "unique_seq": 2682,
+            "duplicates": 0,
+            "missing": 1032,
+            "missing_ranges": [
+              "2011-2103",
+              "2776-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "fb-keep": {
+            "lines": 2839,
+            "unique_seq": 2838,
+            "duplicates": 0,
+            "missing": 876,
+            "missing_ranges": [
+              "2011-2194",
+              "2656-2839",
+              "2933-3209",
+              "3394-3577",
+              "3668-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "fb-via-agg": {
+            "lines": 3668,
+            "unique_seq": 3667,
+            "duplicates": 0,
+            "missing": 47,
+            "missing_ranges": [
+              "3668-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "promtail-sd": {
+            "lines": 1908,
+            "unique_seq": 1907,
+            "duplicates": 0,
+            "missing": 1807,
+            "missing_ranges": [
+              "1908-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "promtail-static": {
+            "lines": 1877,
+            "unique_seq": 1876,
+            "duplicates": 0,
+            "missing": 1838,
+            "missing_ranges": [
+              "1877-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "alloy": {
+            "lines": 1967,
+            "unique_seq": 1966,
+            "duplicates": 0,
+            "missing": 1748,
+            "missing_ranges": [
+              "1967-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "otel-filelog": {
+            "lines": 2450,
+            "unique_seq": 2449,
+            "duplicates": 0,
+            "missing": 1265,
+            "missing_ranges": [
+              "2450-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          },
+          "vector": {
+            "lines": 2032,
+            "unique_seq": 2031,
+            "duplicates": 0,
+            "missing": 1683,
+            "missing_ranges": [
+              "2032-3714"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-loki-down-1dae7858\"}"
+            ],
+            "long_lines": {}
+          }
+        },
+        "k8s_events": [
+          "Scheduled: Successfully assigned evict-test/node-crash-loki-down-1dae7858 to evict-lab-worker",
+          "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+          "Created: Created container: app",
+          "Started: Started container app",
+          "NodeNotReady: Node is not ready"
+        ]
+      }
+    }
+  ],
+  "at": "2026-10-23T20:16:41.137747+00:00"
+}

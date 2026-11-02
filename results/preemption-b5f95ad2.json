@@ -1,0 +1,158 @@
+{
+  "truth_seq": 92,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 92,
+      "missing_ranges": [
+        "1-92"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"preemption-b5f95ad2\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/preemption-b5f95ad2 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Preempted: Preempted by pod 23db471a-aefd-4425-a6a0-2adec802794b on node evict-lab-worker",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "preemption",
+  "run": "b5f95ad2",
+  "pod": "preemption-b5f95ad2",
+  "uid": "6783d43c-a2e6-458c-a316-8ecb6f463e6c",
+  "observations": [
+    {
+      "t": "preempted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"preemption-b5f95ad2\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:34:01.989481+00:00"
+}

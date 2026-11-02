@@ -1,0 +1,145 @@
+{
+  "truth_seq": 300022,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 300026,
+      "unique_seq": 300022,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-97de87ad\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300022,
+      "missing_ranges": [
+        "1-300022"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 300026,
+      "unique_seq": 300022,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-97de87ad\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 300026,
+      "unique_seq": 300022,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-97de87ad\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-kubelet-97de87ad to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-kubelet",
+  "run": "97de87ad",
+  "pod": "log-burst-kubelet-97de87ad",
+  "uid": "01c16e28-4978-489a-9fd3-fe15c906ffc8",
+  "observations": [
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=97de87ad event=SIGTERM last_seq=300020",
+          "run=97de87ad seq=300021 phase=shutdown",
+          "run=97de87ad seq=300022 phase=shutdown"
+        ],
+        "container_id": "containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+3s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=97de87ad event=SIGTERM last_seq=300020",
+          "run=97de87ad seq=300021 phase=shutdown",
+          "run=97de87ad seq=300022 phase=shutdown"
+        ],
+        "container_id": "containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+16s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=97de87ad event=SIGTERM last_seq=300020",
+          "run=97de87ad seq=300021 phase=shutdown",
+          "run=97de87ad seq=300022 phase=shutdown"
+        ],
+        "container_id": "containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44",
+      "node_files": "pod dir GONE, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:31:24.650817+00:00"
+}

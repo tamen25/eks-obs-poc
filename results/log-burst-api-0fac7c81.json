@@ -1,0 +1,84 @@
+{
+  "truth_seq": 100005,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 100010,
+      "unique_seq": 100005,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100005,
+      "missing_ranges": [
+        "1-100005"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100005,
+      "missing_ranges": [
+        "1-100005"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-static": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100005,
+      "missing_ranges": [
+        "1-100005"
+      ],
+      "events": [],
+      "label_sets": []
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-api-0fac7c81 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-api",
+  "run": "0fac7c81",
+  "pod": "log-burst-api-0fac7c81",
+  "uid": "0eab85ad-c3d2-4233-a792-64b1bc6be53b",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"log-burst-api-0fac7c81\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T08:59:57.121348+00:00"
+}

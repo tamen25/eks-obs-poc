@@ -1,0 +1,166 @@
+{
+  "truth_seq": 172,
+  "truth_events": [
+    "start",
+    "alloc-start",
+    "alloc-done",
+    "SIGTERM"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-dcd514a1\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-dcd514a1\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-dcd514a1\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-dcd514a1\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/node-memory-pressure-dcd514a1 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: The node was low on resource: memory. Threshold quantity: 21039Mi, available: 20903948Ki. Container app was using 728632Ki, request is 16Mi, has large",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "node-memory-pressure",
+  "run": "dcd514a1",
+  "pod": "node-memory-pressure-dcd514a1",
+  "uid": "82a6d90b-95f1-402c-a43d-7d6a5d72030c",
+  "observations": [
+    {
+      "t": "threshold-set",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://867457a6488defb32fd9114a45492653188c47ca6aab89b0e5abfd72e907fe1c"
+      },
+      "kubectl_logs": "ok, 37 seq lines (last seq=37)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "The node was low on resource: memory. Threshold quantity: 21039Mi, available: 20903948Ki. Container app was using 728632Ki, request is 16Mi, has larger consumption of memory. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=dcd514a1 event=SIGTERM last_seq=170",
+          "run=dcd514a1 seq=171 phase=shutdown",
+          "run=dcd514a1 seq=172 phase=shutdown"
+        ],
+        "container_id": "containerd://867457a6488defb32fd9114a45492653188c47ca6aab89b0e5abfd72e907fe1c"
+      },
+      "kubectl_logs": "ok, 172 seq lines (last seq=172)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+3s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "The node was low on resource: memory. Threshold quantity: 21039Mi, available: 20903948Ki. Container app was using 728632Ki, request is 16Mi, has larger consumption of memory. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=dcd514a1 event=SIGTERM last_seq=170",
+          "run=dcd514a1 seq=171 phase=shutdown",
+          "run=dcd514a1 seq=172 phase=shutdown"
+        ],
+        "container_id": "containerd://867457a6488defb32fd9114a45492653188c47ca6aab89b0e5abfd72e907fe1c"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://867457a6488defb32fd9114a45492653188c47ca6aab89b0e5abfd72e907fe1c",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+38s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "The node was low on resource: memory. Threshold quantity: 21039Mi, available: 20903948Ki. Container app was using 728632Ki, request is 16Mi, has larger consumption of memory. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=dcd514a1 event=SIGTERM last_seq=170",
+          "run=dcd514a1 seq=171 phase=shutdown",
+          "run=dcd514a1 seq=172 phase=shutdown"
+        ],
+        "container_id": "containerd://867457a6488defb32fd9114a45492653188c47ca6aab89b0e5abfd72e907fe1c"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://867457a6488defb32fd9114a45492653188c47ca6aab89b0e5abfd72e907fe1c",
+      "node_files": "pod dir GONE, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:27:48.793706+00:00"
+}

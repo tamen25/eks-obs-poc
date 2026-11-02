@@ -1,0 +1,92 @@
+{
+  "truth_seq": 452,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 455,
+      "unique_seq": 452,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-slow-dd95832a\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 455,
+      "unique_seq": 452,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-slow-dd95832a\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 455,
+      "unique_seq": 452,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-slow-dd95832a\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 455,
+      "unique_seq": 452,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-slow-dd95832a\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/api-eviction-slow-dd95832a to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "api-eviction-slow",
+  "run": "dd95832a",
+  "pod": "api-eviction-slow-dd95832a",
+  "uid": "7cda626a-2b9c-46bb-a352-0d59f4f9533f",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"api-eviction-slow-dd95832a\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:16:51.721677+00:00"
+}

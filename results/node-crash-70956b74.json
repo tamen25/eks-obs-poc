@@ -1,0 +1,360 @@
+{
+  "truth_seq": 12166,
+  "truth_events": [
+    "start",
+    "start"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 14036,
+      "unique_seq": 12114,
+      "duplicates": 1920,
+      "missing": 52,
+      "missing_ranges": [
+        "12115-12166"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 12115,
+      "unique_seq": 12114,
+      "duplicates": 0,
+      "missing": 52,
+      "missing_ranges": [
+        "12115-12166"
+      ],
+      "events": [
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 14005,
+      "unique_seq": 12114,
+      "duplicates": 1889,
+      "missing": 52,
+      "missing_ranges": [
+        "12115-12166"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-keep": {
+      "lines": 14123,
+      "unique_seq": 12201,
+      "duplicates": 1920,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-via-agg": {
+      "lines": 14036,
+      "unique_seq": 12114,
+      "duplicates": 1920,
+      "missing": 52,
+      "missing_ranges": [
+        "12115-12166"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 14142,
+      "unique_seq": 12220,
+      "duplicates": 1920,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 14064,
+      "unique_seq": 12142,
+      "duplicates": 1920,
+      "missing": 24,
+      "missing_ranges": [
+        "12143-12166"
+      ],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 14152,
+      "unique_seq": 12230,
+      "duplicates": 1920,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 14124,
+      "unique_seq": 12258,
+      "duplicates": 1864,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 14194,
+      "unique_seq": 12272,
+      "duplicates": 1920,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/node-crash-70956b74 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "SandboxChanged: Pod sandbox changed, it will be killed and re-created.",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app"
+  ],
+  "scenario": "node-crash",
+  "run": "70956b74",
+  "pod": "node-crash-70956b74",
+  "uid": "ae145751-ee33-4b06-92f1-1b12805cec2c",
+  "observations": [
+    {
+      "t": "node down (spot loss)",
+      "score": {
+        "truth_seq": 1920,
+        "truth_events": [
+          "start"
+        ],
+        "truth_long_lines": {},
+        "shippers": {
+          "fluent-bit": {
+            "lines": 1890,
+            "unique_seq": 1889,
+            "duplicates": 0,
+            "missing": 31,
+            "missing_ranges": [
+              "1890-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "fluent-bit-defaults": {
+            "lines": 0,
+            "unique_seq": 0,
+            "duplicates": 0,
+            "missing": 1920,
+            "missing_ranges": [
+              "1-1920"
+            ],
+            "events": [],
+            "label_sets": [],
+            "long_lines": {}
+          },
+          "fb-proof": {
+            "lines": 1890,
+            "unique_seq": 1889,
+            "duplicates": 0,
+            "missing": 31,
+            "missing_ranges": [
+              "1890-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "fb-keep": {
+            "lines": 1890,
+            "unique_seq": 1889,
+            "duplicates": 0,
+            "missing": 31,
+            "missing_ranges": [
+              "1890-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "fb-via-agg": {
+            "lines": 1890,
+            "unique_seq": 1889,
+            "duplicates": 0,
+            "missing": 31,
+            "missing_ranges": [
+              "1890-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "promtail-sd": {
+            "lines": 1888,
+            "unique_seq": 1887,
+            "duplicates": 0,
+            "missing": 33,
+            "missing_ranges": [
+              "1888-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "promtail-static": {
+            "lines": 1898,
+            "unique_seq": 1897,
+            "duplicates": 0,
+            "missing": 23,
+            "missing_ranges": [
+              "1898-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "alloy": {
+            "lines": 1828,
+            "unique_seq": 1827,
+            "duplicates": 0,
+            "missing": 93,
+            "missing_ranges": [
+              "1828-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "otel-filelog": {
+            "lines": 1852,
+            "unique_seq": 1851,
+            "duplicates": 0,
+            "missing": 69,
+            "missing_ranges": [
+              "1852-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          },
+          "vector": {
+            "lines": 1839,
+            "unique_seq": 1838,
+            "duplicates": 0,
+            "missing": 82,
+            "missing_ranges": [
+              "1839-1920"
+            ],
+            "events": [
+              "start"
+            ],
+            "label_sets": [
+              "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-crash-70956b74\"}"
+            ],
+            "long_lines": {}
+          }
+        },
+        "k8s_events": [
+          "Scheduled: Successfully assigned evict-test/node-crash-70956b74 to evict-lab-worker",
+          "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+          "Created: Created container: app",
+          "Started: Started container app"
+        ]
+      }
+    }
+  ],
+  "at": "2026-10-23T20:12:18.434852+00:00"
+}

@@ -1,0 +1,2 @@
+100 files: refresh 1s = 0.5 mCPU, refresh 10s = 0.4 mCPU, refresh 60s = 0.3 mCPU
+1000 files: refresh 1s = 3.1 mCPU, refresh 10s = 2.0 mCPU, refresh 60s = 1.9 mCPU

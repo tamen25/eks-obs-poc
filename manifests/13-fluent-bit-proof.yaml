@@ -1,0 +1,85 @@
+# Instrument for checking how Fluent Bit's tail input behaves (see FINDINGS.md, round 3):
+#   - refresh_interval 10s, so the "pod lives inside one refresh window" case can be measured;
+#   - a 512KB memory buffer, so a stalled output pauses the tail input mid-file and we can see
+#     whether it still finishes a file that was deleted while it was paused;
+#   - only test-pod logs, so nothing else fills that buffer.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-proof
+  namespace: logging
+data:
+  proof.yaml: |
+    service:
+      flush: 1
+      log_level: info
+      # Retry quickly once Loki is back, so the test is not waiting on backoff.
+      scheduler.base: 1
+      scheduler.cap: 3
+
+    pipeline:
+      inputs:
+        - name: tail
+          tag: kube.*
+          path: /var/log/containers/*_evict-test_*.log
+          multiline.parser: cri
+          db: /var/lib/fluent-bit-proof/tail.db
+          refresh_interval: 10
+          read_from_head: true
+          rotate_wait: 30
+          mem_buf_limit: 512KB
+
+      filters:
+        - name: kubernetes
+          match: kube.*
+          kube_tag_prefix: kube.var.log.containers.
+          merge_log: off
+          labels: off
+          annotations: off
+
+      outputs:
+        - name: loki
+          match: kube.*
+          host: evict-lgtm
+          port: 3100
+          labels: shipper=fb-proof, namespace=$kubernetes['namespace_name'], pod=$kubernetes['pod_name'], container=$kubernetes['container_name']
+          remove_keys: kubernetes, stream, _p, time
+          drop_single_key: raw
+          line_format: key_value
+          retry_limit: false
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluent-bit-proof
+  namespace: logging
+  labels: {app: fluent-bit-proof}
+spec:
+  selector:
+    matchLabels: {app: fluent-bit-proof}
+  template:
+    metadata:
+      labels: {app: fluent-bit-proof}
+    spec:
+      serviceAccountName: log-shipper
+      priorityClassName: system-node-critical
+      nodeSelector:
+        lab/role: workload
+      containers:
+        - name: fluent-bit
+          image: fluent/fluent-bit:5.1.5
+          args: ["-c", "/fluent-bit/etc/conf/proof.yaml"]
+          resources:
+            requests: {cpu: 20m, memory: 32Mi}
+            limits: {memory: 256Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: state, mountPath: /var/lib/fluent-bit-proof}
+            - {name: config, mountPath: /fluent-bit/etc/conf}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: state
+          hostPath: {path: /var/lib/fluent-bit-proof, type: DirectoryOrCreate}
+        - name: config
+          configMap: {name: fluent-bit-proof}

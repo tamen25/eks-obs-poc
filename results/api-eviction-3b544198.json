@@ -1,0 +1,128 @@
+{
+  "truth_seq": 108,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 111,
+      "unique_seq": 108,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-3b544198\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 108,
+      "missing_ranges": [
+        "1-108"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 111,
+      "unique_seq": 108,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-3b544198\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 111,
+      "unique_seq": 108,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-3b544198\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/api-eviction-3b544198 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "api-eviction",
+  "run": "3b544198",
+  "pod": "api-eviction-3b544198",
+  "uid": "a2a9a442-0ab1-43dc-b12a-911b716876f1",
+  "observations": [
+    {
+      "t": "running",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://c793933a72d3189c763d619d97c1c01ea2c91318a0dc13e313ee94922611a28d"
+      },
+      "kubectl_logs": "ok, 102 seq lines (last seq=102)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evict+2s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": true,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://c793933a72d3189c763d619d97c1c01ea2c91318a0dc13e313ee94922611a28d"
+      },
+      "kubectl_logs": "ok, 106 seq lines (last seq=106)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"api-eviction-3b544198\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "deleted+3s",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"api-eviction-3b544198\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:15:01.199894+00:00"
+}

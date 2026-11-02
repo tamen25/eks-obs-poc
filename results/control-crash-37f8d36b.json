@@ -1,0 +1,98 @@
+{
+  "truth_seq": 100,
+  "truth_events": [
+    "start",
+    "crash"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 102,
+      "unique_seq": 100,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "crash"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"control-crash-37f8d36b\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 102,
+      "unique_seq": 100,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "crash"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"control-crash-37f8d36b\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 102,
+      "unique_seq": 100,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "crash"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"control-crash-37f8d36b\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 102,
+      "unique_seq": 100,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "crash"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"control-crash-37f8d36b\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/control-crash-37f8d36b to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app"
+  ],
+  "scenario": "control-crash",
+  "run": "37f8d36b",
+  "pod": "control-crash-37f8d36b",
+  "uid": "57a45557-1af2-43eb-a1e6-11f9d121a942",
+  "observations": [
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": 3,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=37f8d36b seq=99 phase=running",
+          "run=37f8d36b seq=100 phase=running",
+          "run=37f8d36b event=crash"
+        ],
+        "container_id": "containerd://850b1561ac6dda7c5eb52eb1a2bf0f9b2c30572d4236aeb0863f4b7c0c98e3fc"
+      },
+      "kubectl_logs": "ok, 100 seq lines (last seq=100)",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T08:56:41.521085+00:00"
+}

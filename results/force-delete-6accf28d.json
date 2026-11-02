@@ -1,0 +1,158 @@
+{
+  "truth_seq": 203,
+  "truth_events": [
+    "start",
+    "SIGTERM"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 205,
+      "unique_seq": 203,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 203,
+      "missing_ranges": [
+        "1-203"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 205,
+      "unique_seq": 203,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 202,
+      "unique_seq": 201,
+      "duplicates": 0,
+      "missing": 2,
+      "missing_ranges": [
+        "202-203"
+      ],
+      "events": [
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 205,
+      "unique_seq": 203,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 205,
+      "unique_seq": 203,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 205,
+      "unique_seq": 203,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 205,
+      "unique_seq": 203,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-6accf28d\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/force-delete-6accf28d to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "force-delete",
+  "run": "6accf28d",
+  "pod": "force-delete-6accf28d",
+  "uid": "3f818517-2941-4fba-9d50-463f6270b4b8",
+  "observations": [
+    {
+      "t": "force-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"force-delete-6accf28d\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "force-deleted+8s",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"force-delete-6accf28d\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:32:35.914351+00:00"
+}

@@ -1,0 +1,126 @@
+{
+  "truth_seq": 239,
+  "truth_events": [
+    "start",
+    "fill-start",
+    "fill-done",
+    "SIGTERM"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 243,
+      "unique_seq": 239,
+      "duplicates": 1,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"kubelet-ephemeral-e863b05e\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 243,
+      "unique_seq": 239,
+      "duplicates": 1,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"kubelet-ephemeral-e863b05e\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 243,
+      "unique_seq": 239,
+      "duplicates": 1,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"kubelet-ephemeral-e863b05e\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "None: Created container: app",
+    "None: Stopping container app",
+    "None: Container image \"busybox:1.37.0\" already present on machine",
+    "None: Successfully assigned evict-test/kubelet-ephemeral-e863b05e to evict-lab-worker",
+    "None: Started container app",
+    "None: Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. "
+  ],
+  "scenario": "kubelet-ephemeral",
+  "run": "e863b05e",
+  "pod": "kubelet-ephemeral-e863b05e",
+  "uid": "a7178a52-df8a-483a-ad6c-ebedbb9e6d2d",
+  "observations": [
+    {
+      "t": "running",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://ce527690ce3c0436f23d3879e502f2226c99e4181391f4a8f23b71235bda020d"
+      },
+      "kubectl_logs": "ok, 12 seq lines (last seq=12)",
+      "node_files": "pod log dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "ContainerStatusUnknown",
+        "term_message_tail": [
+          "The container could not be located when the pod was deleted.  The container used to be Running"
+        ],
+        "container_id": null
+      },
+      "kubectl_logs": "FAILED: Error from server (BadRequest): container \"app\" in pod \"kubelet-ephemeral-e863b05e\" is terminated",
+      "node_files": "pod log dir present,  log file(s)"
+    },
+    {
+      "t": "evicted+20s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 30Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "ContainerStatusUnknown",
+        "term_message_tail": [
+          "The container could not be located when the pod was terminated"
+        ],
+        "container_id": null
+      },
+      "kubectl_logs": "FAILED: Error from server (BadRequest): container \"app\" in pod \"kubelet-ephemeral-e863b05e\" is terminated",
+      "node_files": "pod log dir present,  log file(s)"
+    }
+  ],
+  "at": "2026-10-23T08:47:56.730754+00:00"
+}

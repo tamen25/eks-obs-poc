@@ -1,0 +1,20 @@
+# Lab cluster for the evicted-pod log experiments.
+# One control plane plus one worker; test workloads are pinned to the worker so
+# that kubelet eviction settings can be tuned there without touching the control plane.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: evict-lab
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.34.0@sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a
+  - role: worker
+    image: kindest/node:v1.34.0@sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a
+    labels:
+      lab/role: workload
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            # Short transition period so pressure conditions clear quickly between runs.
+            eviction-pressure-transition-period: "20s"

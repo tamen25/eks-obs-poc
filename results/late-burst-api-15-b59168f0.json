@@ -1,0 +1,95 @@
+{
+  "truth_seq": 95,
+  "truth_events": [
+    "start",
+    "late-burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 99,
+      "unique_seq": 95,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-15-b59168f0\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 99,
+      "unique_seq": 95,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-15-b59168f0\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 97,
+      "unique_seq": 95,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-15-b59168f0\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 99,
+      "unique_seq": 95,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-15-b59168f0\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/late-burst-api-15-b59168f0 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "late-burst-api-15",
+  "run": "b59168f0",
+  "pod": "late-burst-api-15-b59168f0",
+  "uid": "2e79900b-8bff-459a-8358-3c2ec881e457",
+  "observations": [
+    {
+      "t": "evicted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"late-burst-api-15-b59168f0\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T10:24:58.464828+00:00"
+}

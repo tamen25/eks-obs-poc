@@ -1,0 +1,78 @@
+# API-independent Promtail: glob the node's pod log directory and take the
+# labels from the path. Targets live exactly as long as the files do, not as
+# long as the pod object. Separate DaemonSet because Promtail keys positions by
+# file path only: two jobs tailing the same file in one process overwrite each
+# other's offsets.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: promtail-static
+  namespace: logging
+data:
+  promtail.yaml: |
+    server:
+      http_listen_port: 3101
+      grpc_listen_port: 0
+      log_level: info
+
+    positions:
+      filename: /var/lib/promtail-static/positions.yaml
+
+    clients:
+      - url: http://evict-lgtm:3100/loki/api/v1/push
+
+    target_config:
+      sync_period: 2s
+
+    scrape_configs:
+      - job_name: pod-logs-static
+        static_configs:
+          - targets: [localhost]
+            labels:
+              shipper: promtail-static
+              __path__: /var/log/pods/*/*/*.log
+        pipeline_stages:
+          - cri: {}
+          - regex:
+              source: filename
+              expression: '^/var/log/pods/(?P<namespace>[^_]+)_(?P<pod>[^_]+)_[^/]+/(?P<container>[^/]+)/'
+          - labels:
+              namespace:
+              pod:
+              container:
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: promtail-static
+  namespace: logging
+  labels: {app: promtail-static}
+spec:
+  selector:
+    matchLabels: {app: promtail-static}
+  template:
+    metadata:
+      labels: {app: promtail-static}
+    spec:
+      serviceAccountName: log-shipper
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: promtail
+          image: grafana/promtail:3.6.11
+          args: ["-config.file=/etc/promtail/promtail.yaml"]
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 256Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: state, mountPath: /var/lib/promtail-static}
+            - {name: config, mountPath: /etc/promtail}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: state
+          hostPath: {path: /var/lib/promtail-static, type: DirectoryOrCreate}
+        - name: config
+          configMap: {name: promtail-static}

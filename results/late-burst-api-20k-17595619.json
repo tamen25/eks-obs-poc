@@ -1,0 +1,143 @@
+{
+  "truth_seq": 20080,
+  "truth_events": [
+    "start",
+    "late-burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 20084,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-20k-17595619\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 20084,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-20k-17595619\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 20082,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-20k-17595619\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 20084,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-20k-17595619\"}"
+      ]
+    },
+    "alloy": {
+      "lines": 20084,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-20k-17595619\"}"
+      ]
+    },
+    "otel-filelog": {
+      "lines": 20084,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit",
+        "late-burst-done"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"late-burst-api-20k-17595619\"}"
+      ]
+    },
+    "vector": {
+      "lines": 20084,
+      "unique_seq": 20080,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-api-20k-17595619\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/late-burst-api-20k-17595619 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "late-burst-api-20k",
+  "run": "17595619",
+  "pod": "late-burst-api-20k-17595619",
+  "uid": "6f73eef5-fe30-4943-9e7d-4c636a0d7495",
+  "observations": [
+    {
+      "t": "evicted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"late-burst-api-20k-17595619\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T10:57:27.916589+00:00"
+}

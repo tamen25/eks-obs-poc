@@ -1,0 +1,106 @@
+{
+  "truth_seq": 20091,
+  "truth_events": [
+    "start",
+    "late-burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 20095,
+      "unique_seq": 20091,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-kubelet-20k-36a861fc\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 20095,
+      "unique_seq": 20091,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-kubelet-20k-36a861fc\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 20095,
+      "unique_seq": 20091,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-kubelet-20k-36a861fc\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 20095,
+      "unique_seq": 20091,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"late-burst-kubelet-20k-36a861fc\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/late-burst-kubelet-20k-36a861fc to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "late-burst-kubelet-20k",
+  "run": "36a861fc",
+  "pod": "late-burst-kubelet-20k-36a861fc",
+  "uid": "a159f642-a0b5-40f7-83b2-e3203dccceea",
+  "observations": [
+    {
+      "t": "evicted",
+      "pod": {
+        "exists": true,
+        "phase": "Succeeded",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": 0,
+        "term_reason": "Completed",
+        "term_message_tail": [],
+        "container_id": "containerd://3dae124f3e9290e3b7b4feafc1e5e185d541bd0c098958706e5c2e1759f0af92"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://3dae124f3e9290e3b7b4feafc1e5e185d541bd0c098958706e5c2e1759f0af92",
+      "node_files": "pod dir GONE, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T10:42:18.378193+00:00"
+}

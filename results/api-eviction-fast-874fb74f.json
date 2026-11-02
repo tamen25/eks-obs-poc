@@ -1,0 +1,153 @@
+{
+  "truth_seq": 92,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-874fb74f\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 92,
+      "missing_ranges": [
+        "1-92"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 92,
+      "missing_ranges": [
+        "1-92"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-874fb74f\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-874fb74f\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-874fb74f\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"api-eviction-fast-874fb74f\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 95,
+      "unique_seq": 92,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-874fb74f\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/api-eviction-fast-874fb74f to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "api-eviction-fast",
+  "run": "874fb74f",
+  "pod": "api-eviction-fast-874fb74f",
+  "uid": "ef5a3fac-2ac7-4729-9b6f-bf2f27596c8d",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"api-eviction-fast-874fb74f\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:23:21.695964+00:00"
+}

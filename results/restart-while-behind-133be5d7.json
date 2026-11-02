@@ -1,0 +1,221 @@
+{
+  "truth_seq": 300097,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 96808,
+      "unique_seq": 96805,
+      "duplicates": 0,
+      "missing": 203292,
+      "missing_ranges": [
+        "96727-300018"
+      ],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300097,
+      "missing_ranges": [
+        "1-300097"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 80,
+      "unique_seq": 79,
+      "duplicates": 0,
+      "missing": 300018,
+      "missing_ranges": [
+        "1-300018"
+      ],
+      "events": [
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-keep": {
+      "lines": 300101,
+      "unique_seq": 300097,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-via-agg": {
+      "lines": 109359,
+      "unique_seq": 109356,
+      "duplicates": 0,
+      "missing": 190741,
+      "missing_ranges": [
+        "109278-300018"
+      ],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 15740,
+      "unique_seq": 15738,
+      "duplicates": 0,
+      "missing": 284359,
+      "missing_ranges": [
+        "15739-300097"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 18858,
+      "unique_seq": 18856,
+      "duplicates": 0,
+      "missing": 281241,
+      "missing_ranges": [
+        "18857-300097"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 27342,
+      "unique_seq": 27340,
+      "duplicates": 0,
+      "missing": 272757,
+      "missing_ranges": [
+        "27341-300097"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 30600,
+      "unique_seq": 30598,
+      "duplicates": 0,
+      "missing": 269499,
+      "missing_ranges": [
+        "30599-300097"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 12926,
+      "unique_seq": 12924,
+      "duplicates": 0,
+      "missing": 287173,
+      "missing_ranges": [
+        "12925-300097"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"restart-while-behind-133be5d7\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/restart-while-behind-133be5d7 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "restart-while-behind",
+  "run": "133be5d7",
+  "pod": "restart-while-behind-133be5d7",
+  "uid": "044681eb-16be-4a4f-a1d9-0edc2d9f10c3",
+  "observations": [
+    {
+      "t": "before restart: holding deleted pod logs",
+      "holders": [
+        "fluent-bit=1",
+        "fluent-bit=4",
+        "fluent-bit=4",
+        "otelcol-contrib=3",
+        "vector=2"
+      ]
+    },
+    {
+      "t": "shippers restarted",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "Error on reading termination message from logs: failed to try resolving symlinks in path \"/var/log/pods/evict-test_restart-while-behind-133be5d7_044681eb-16be-4a4f-a1d9-0edc2d9f10c3/app/0.log\": lstat /var/log/pods/evict-test_restart-while-behind-133be5d7_044681eb-16be-4a4f-a1d9-0edc2d9f10c3: no such file or directory"
+        ],
+        "container_id": "containerd://985177a4122dd41bd81860eebd564e0ed2e1bdf6dca07bd9d761d219c1e4fef5"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://985177a4122dd41bd81860eebd564e0ed2e1bdf6dca07bd9d761d219c1e4fef5",
+      "node_files": "pod dir GONE, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T20:08:28.760461+00:00"
+}

@@ -1,0 +1,222 @@
+== scenario late-burst-api-15  run=b59168f0  pod=late-burst-api-15-b59168f0
+   Known pod writes its last 15 lines in one go and is API-evicted with no grace immediately.
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "late-burst-api-15-b59168f0" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-b59168f0"}
+  fluent-bit-defaults     99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-b59168f0"}
+  promtail-sd          97     95    0        0  [] ['start', 'late-burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-b59168f0"}
+  promtail-static      99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-b59168f0"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-api-15-b59168f0 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario late-burst-api-15  run=13cf62e8  pod=late-burst-api-15-13cf62e8
+   Known pod writes its last 15 lines in one go and is API-evicted with no grace immediately.
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "late-burst-api-15-13cf62e8" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-13cf62e8"}
+  fluent-bit-defaults     99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-13cf62e8"}
+  promtail-sd          80     79    0       16  ['80-95'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-13cf62e8"}
+  promtail-static      99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-13cf62e8"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-api-15-13cf62e8 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario late-burst-api-15  run=acc8fb97  pod=late-burst-api-15-acc8fb97
+   Known pod writes its last 15 lines in one go and is API-evicted with no grace immediately.
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "late-burst-api-15-acc8fb97" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-acc8fb97"}
+  fluent-bit-defaults     99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-acc8fb97"}
+  promtail-sd          97     95    0        0  [] ['start', 'late-burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-acc8fb97"}
+  promtail-static      99     95    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-15-acc8fb97"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-api-15-acc8fb97 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario late-burst-api-20k  run=fac2f990  pod=late-burst-api-20k-fac2f990
+   Known pod writes its last 20,000 lines (~1 MB) in one go and is API-evicted immediately.
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "late-burst-api-20k-fac2f990" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20080 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fac2f990"}
+  fluent-bit-defaults  20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fac2f990"}
+  promtail-sd       11158  11157    0     8923  ['11158-20080'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fac2f990"}
+  promtail-static   20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fac2f990"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-api-20k-fac2f990 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario late-burst-api-20k  run=6613a6e3  pod=late-burst-api-20k-6613a6e3
+   Known pod writes its last 20,000 lines (~1 MB) in one go and is API-evicted immediately.
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "late-burst-api-20k-6613a6e3" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20080 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-6613a6e3"}
+  fluent-bit-defaults  20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-6613a6e3"}
+  promtail-sd        3205   3204    0    16876  ['3205-20080'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-6613a6e3"}
+  promtail-static   20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-6613a6e3"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-api-20k-6613a6e3 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario late-burst-api-20k  run=fd37870d  pod=late-burst-api-20k-fd37870d
+   Known pod writes its last 20,000 lines (~1 MB) in one go and is API-evicted immediately.
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "late-burst-api-20k-fd37870d" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20080 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fd37870d"}
+  fluent-bit-defaults  20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fd37870d"}
+  promtail-sd       20082  20080    0        0  [] ['start', 'late-burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fd37870d"}
+  promtail-static   20084  20080    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-api-20k-fd37870d"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-api-20k-fd37870d to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario late-burst-kubelet-20k  run=9912dac8  pod=late-burst-kubelet-20k-9912dac8
+   Known pod writes 20,000 lines, then breaks its ephemeral-storage limit (kubelet eviction).
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': True, 'phase': 'Succeeded', 'reason': None, 'message': None, 'deleting': False, 'exit_code': 0, 'term_reason': 'Completed', 'term_message_tail': [], 'container_id': 'containerd://14b3daa2567bf397183405b86233f65c80873d840ffb4730b097aed0c73e7ebc'} logs=FAILED: unable to retrieve container logs for containerd://14b3daa2567bf397183405b86233f65c80873d840ffb4730b097aed0c73e7ebc files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20089 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-9912dac8"}
+  fluent-bit-defaults  20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-9912dac8"}
+  promtail-sd       20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-9912dac8"}
+  promtail-static   20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-9912dac8"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-kubelet-20k-9912dac8 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. 
+    - Killing: Stopping container app
+== scenario late-burst-kubelet-20k  run=5c245a20  pod=late-burst-kubelet-20k-5c245a20
+   Known pod writes 20,000 lines, then breaks its ephemeral-storage limit (kubelet eviction).
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': True, 'phase': 'Succeeded', 'reason': None, 'message': None, 'deleting': False, 'exit_code': 0, 'term_reason': 'Completed', 'term_message_tail': [], 'container_id': 'containerd://d16125cdc5c370043e31d64676a354a7871a064fb507e45802a9090f04eca555'} logs=FAILED: unable to retrieve container logs for containerd://d16125cdc5c370043e31d64676a354a7871a064fb507e45802a9090f04eca555 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20089 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-5c245a20"}
+  fluent-bit-defaults  20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-5c245a20"}
+  promtail-sd       20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-5c245a20"}
+  promtail-static   20093  20089    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-5c245a20"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-kubelet-20k-5c245a20 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. 
+    - Killing: Stopping container app
+== scenario late-burst-kubelet-20k  run=36a861fc  pod=late-burst-kubelet-20k-36a861fc
+   Known pod writes 20,000 lines, then breaks its ephemeral-storage limit (kubelet eviction).
+  fluent-bit-defaults tailing the file before the burst: True
+  [evicted] pod={'exists': True, 'phase': 'Succeeded', 'reason': None, 'message': None, 'deleting': False, 'exit_code': 0, 'term_reason': 'Completed', 'term_message_tail': [], 'container_id': 'containerd://3dae124f3e9290e3b7b4feafc1e5e185d541bd0c098958706e5c2e1759f0af92'} logs=FAILED: unable to retrieve container logs for containerd://3dae124f3e9290e3b7b4feafc1e5e185d541bd0c098958706e5c2e1759f0af92 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20091 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20095  20091    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-36a861fc"}
+  fluent-bit-defaults  20095  20091    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-36a861fc"}
+  promtail-sd       20095  20091    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-36a861fc"}
+  promtail-static   20095  20091    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "late-burst-kubelet-20k-36a861fc"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/late-burst-kubelet-20k-36a861fc to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. 
+    - Killing: Stopping container app
+
+#### late-burst-api-15: 3 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  3/3                0 of 285                        0
+  fluent-bit-defaults         3/3                0 of 285                        0
+  promtail-sd                 2/3               16 of 285                        3
+  promtail-static             3/3                0 of 285                        0
+
+#### late-burst-api-20k: 3 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  3/3                0 of 60240                      0
+  fluent-bit-defaults         3/3                0 of 60240                      0
+  promtail-sd                 1/3            25799 of 60240                      3
+  promtail-static             3/3                0 of 60240                      0
+
+#### late-burst-kubelet-20k: 3 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  3/3                0 of 60269                      0
+  fluent-bit-defaults         3/3                0 of 60269                      0
+  promtail-sd                 3/3                0 of 60269                      0
+  promtail-static             3/3                0 of 60269                      0

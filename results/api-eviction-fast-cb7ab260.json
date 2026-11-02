@@ -1,0 +1,88 @@
+{
+  "truth_seq": 67,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 70,
+      "unique_seq": 67,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-cb7ab260\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 67,
+      "missing_ranges": [
+        "1-67"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 70,
+      "unique_seq": 67,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-cb7ab260\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 70,
+      "unique_seq": 67,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"api-eviction-fast-cb7ab260\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/api-eviction-fast-cb7ab260 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "api-eviction-fast",
+  "run": "cb7ab260",
+  "pod": "api-eviction-fast-cb7ab260",
+  "uid": "5ccab7e1-40d9-460e-80b3-a85e784fe02b",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"api-eviction-fast-cb7ab260\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:03:22.253616+00:00"
+}

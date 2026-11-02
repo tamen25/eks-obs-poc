@@ -1,0 +1,40 @@
+== scenario preemption  run=b5f95ad2  pod=preemption-b5f95ad2
+   The scheduler preempts the pod for a higher-priority one (graceful delete, not the Eviction API).
+  [preempted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "preemption-b5f95ad2" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 92 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "preemption-b5f95ad2"}
+  fluent-bit-defaults      0      0    0       92  ['1-92'] []
+  fb-proof             95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "preemption-b5f95ad2"}
+  promtail-sd          95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "preemption-b5f95ad2"}
+  promtail-static      95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "preemption-b5f95ad2"}
+  alloy                95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "preemption-b5f95ad2"}
+  otel-filelog         95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "preemption-b5f95ad2"}
+  vector               95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "preemption-b5f95ad2"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/preemption-b5f95ad2 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Preempted: Preempted by pod 23db471a-aefd-4425-a6a0-2adec802794b on node evict-lab-worker
+    - Killing: Stopping container app
+
+#### preemption: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 92                         0
+  fluent-bit-defaults         0/1               92 of 92                         1
+  fb-proof                    1/1                0 of 92                         0
+  promtail-sd                 1/1                0 of 92                         0
+  promtail-static             1/1                0 of 92                         0
+  alloy                       1/1                0 of 92                         0
+  otel-filelog                1/1                0 of 92                         0
+  vector                      1/1                0 of 92                         0

@@ -1,0 +1,298 @@
+== scenario force-delete-short  run=36ed3552  pod=force-delete-short-36ed3552
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-36ed3552" not found in namespace "evict-test" files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  fluent-bit-defaults      0      0    0      100  ['1-100'] []
+  fb-proof              0      0    0      100  ['1-100'] []
+  fb-keep             103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  fb-via-agg          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  promtail-sd         103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  promtail-static     103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  alloy               103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  otel-filelog        103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-36ed3552"}
+  vector              103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-36ed3552"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-36ed3552 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=09a599be  pod=force-delete-short-09a599be
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-09a599be" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 101 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  fluent-bit-defaults      0      0    0      101  ['1-101'] []
+  fb-proof              0      0    0      101  ['1-101'] []
+  fb-keep             104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  fb-via-agg          104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  promtail-sd         104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  promtail-static     104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  alloy               104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  otel-filelog        104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-09a599be"}
+  vector              104    101    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-09a599be"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-09a599be to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=c7ebd4d9  pod=force-delete-short-c7ebd4d9
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-c7ebd4d9" not found in namespace "evict-test" files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof              0      0    0       99  ['1-99'] []
+  fb-keep             102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  fb-via-agg          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-c7ebd4d9"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-c7ebd4d9"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-c7ebd4d9 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=6edd0188  pod=force-delete-short-6edd0188
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-6edd0188" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  fb-keep             102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  fb-via-agg          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  promtail-sd         100     99    0        0  [] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-6edd0188"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-6edd0188"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-6edd0188 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=667964d8  pod=force-delete-short-667964d8
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-667964d8" not found in namespace "evict-test" files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  fb-keep             102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  fb-via-agg          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-667964d8"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-667964d8"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-667964d8 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=433ddec8  pod=force-delete-short-433ddec8
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-433ddec8" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  fb-keep             102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  fb-via-agg          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-433ddec8"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-433ddec8"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-433ddec8 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=bbb5577d  pod=force-delete-short-bbb5577d
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-bbb5577d" not found in namespace "evict-test" files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  fluent-bit-defaults      0      0    0      100  ['1-100'] []
+  fb-proof            103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {}
+  fb-keep             103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  fb-via-agg          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  promtail-sd         103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  promtail-static     103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  alloy               103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  otel-filelog        103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-bbb5577d"}
+  vector              103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-bbb5577d"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-bbb5577d to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario force-delete-short  run=a963fb26  pod=force-delete-short-a963fb26
+   Pod force-deleted (--grace-period=0 --force) ~1s after Ready: no grace, no sidecar can help.
+  [force-deleted+10s] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "force-delete-short-a963fb26" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  fluent-bit-defaults      0      0    0      100  ['1-100'] []
+  fb-proof            103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {}
+  fb-keep             103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  fb-via-agg          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  promtail-sd          97     96    0        4  ['97-100'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  promtail-static     103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  alloy               103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  otel-filelog        103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "force-delete-short-a963fb26"}
+  vector              103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "force-delete-short-a963fb26"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/force-delete-short-a963fb26 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+
+#### force-delete-short: 8 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  8/8                0 of 797                        0
+  fluent-bit-defaults         0/8              797 of 797                        8
+  fb-proof                    5/8              300 of 797                        3
+  fb-keep                     8/8                0 of 797                        0
+  fb-via-agg                  8/8                0 of 797                        0
+  promtail-sd                 7/8                4 of 797                        2
+  promtail-static             8/8                0 of 797                        0
+  alloy                       8/8                0 of 797                        0
+  otel-filelog                8/8                0 of 797                        0
+  vector                      8/8                0 of 797                        0

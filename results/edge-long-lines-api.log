@@ -1,0 +1,39 @@
+== scenario long-lines-api  run=5d2c16be  pod=long-lines-api-5d2c16be
+   A known pod writes a 100 KB and a 1 MB line (CRI splits at 16 KB), then is API-evicted at once.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "long-lines-api-5d2c16be" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 32 seq lines, events=['start', 'long-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           35     31    0        1  ['32'] ['start', 'long-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "long-lines-api-5d2c16be"}
+  fluent-bit-defaults      0      0    0       32  ['1-32'] []
+  fb-proof             35     31    0        1  ['32'] ['start', 'long-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "long-lines-api-5d2c16be"}
+  promtail-sd          32     31    0        1  ['32'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "long-lines-api-5d2c16be"}
+  promtail-static      35     31    0        1  ['32'] ['start', 'long-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "long-lines-api-5d2c16be"}
+  alloy                35     31    0        1  ['32'] ['start', 'long-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "long-lines-api-5d2c16be"}
+  otel-filelog         35     31    0        1  ['32'] ['start', 'long-done', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "long-lines-api-5d2c16be"}
+  vector               35     31    0        1  ['32'] ['start', 'long-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "long-lines-api-5d2c16be"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/long-lines-api-5d2c16be to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+
+#### long-lines-api: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  0/1                1 of 32                         0
+  fluent-bit-defaults         0/1               32 of 32                         1
+  fb-proof                    0/1                1 of 32                         0
+  promtail-sd                 0/1                1 of 32                         1
+  promtail-static             0/1                1 of 32                         0
+  alloy                       0/1                1 of 32                         0
+  otel-filelog                0/1                1 of 32                         0
+  vector                      0/1                1 of 32                         0

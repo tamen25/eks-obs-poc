@@ -1,0 +1,90 @@
+{
+  "truth_seq": 100012,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 100017,
+      "unique_seq": 100012,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "exit",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100012,
+      "missing_ranges": [
+        "1-100012"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100012,
+      "missing_ranges": [
+        "1-100012"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-static": {
+      "lines": 100017,
+      "unique_seq": 100012,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "exit",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-fdbb6ab9\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-api-fdbb6ab9 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-api",
+  "run": "fdbb6ab9",
+  "pod": "log-burst-api-fdbb6ab9",
+  "uid": "97fee231-192e-4ddf-b45e-2f3ce352e793",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"log-burst-api-fdbb6ab9\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:28:19.670198+00:00"
+}

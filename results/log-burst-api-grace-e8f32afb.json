@@ -1,0 +1,151 @@
+{
+  "truth_seq": 100008,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 100013,
+      "unique_seq": 100008,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-grace-e8f32afb\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100008,
+      "missing_ranges": [
+        "1-100008"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 100013,
+      "unique_seq": 100008,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-grace-e8f32afb\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 100013,
+      "unique_seq": 100008,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-grace-e8f32afb\"}"
+      ]
+    },
+    "alloy": {
+      "lines": 100013,
+      "unique_seq": 100008,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "exit",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-grace-e8f32afb\"}"
+      ]
+    },
+    "otel-filelog": {
+      "lines": 100013,
+      "unique_seq": 100008,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "exit",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"log-burst-api-grace-e8f32afb\"}"
+      ]
+    },
+    "vector": {
+      "lines": 100013,
+      "unique_seq": 100008,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-grace-e8f32afb\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-api-grace-e8f32afb to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: log-grace",
+    "Started: Started container log-grace",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container log-grace",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-api-grace",
+  "run": "e8f32afb",
+  "pod": "log-burst-api-grace-e8f32afb",
+  "uid": "da60ed8b-5b0e-4170-8187-f7aba458bcaf",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"log-burst-api-grace-e8f32afb\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:09:25.072554+00:00"
+}

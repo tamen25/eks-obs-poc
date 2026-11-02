@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit
+  namespace: logging
+data:
+  fluent-bit.yaml: |
+    service:
+      flush: 1
+      log_level: info
+      http_server: on
+      http_listen: 0.0.0.0
+      http_port: 2020
+      # Buffer chunks on the node so a Loki outage or a shipper restart does not drop logs.
+      storage.path: /var/lib/fluent-bit/storage
+      storage.sync: normal
+      parsers_file: /fluent-bit/etc/parsers.conf
+
+    pipeline:
+      inputs:
+        - name: tail
+          tag: kube.*
+          path: /var/log/containers/*.log
+          multiline.parser: cri
+          # Offsets survive restarts because the DB lives on the node.
+          db: /var/lib/fluent-bit/tail.db
+          db.locking: true
+          # Default is 60s: a pod that starts and is evicted inside that window can be missed.
+          refresh_interval: 1
+          # Files discovered late (new pod, shipper restart) are read from the start.
+          read_from_head: true
+          # Kubernetes deleting a pod's log symlink looks like a rotation to Fluent Bit, so this is
+          # how long it keeps reading a deleted pod log before closing it, finished or not
+          # (default 5s). A CPU-starved instance lost 46% of a 45 MB burst at 30 and nothing at 300.
+          # Cost: deleted files keep their disk space until closed.
+          rotate_wait: 300
+          mem_buf_limit: 50MB
+          skip_long_lines: on
+          storage.type: filesystem
+
+        # API server audit log (control plane only; see audit/). The one place an
+        # Eviction-API eviction is recorded with who asked for it.
+        - name: tail
+          tag: audit
+          path: /var/log/kubernetes/audit/audit.log
+          parser: json
+          db: /var/lib/fluent-bit/audit.db
+          refresh_interval: 5
+          read_from_head: true
+
+      filters:
+        - name: kubernetes
+          match: kube.*
+          kube_tag_prefix: kube.var.log.containers.
+          merge_log: off
+          labels: off
+          annotations: off
+
+      outputs:
+        - name: loki
+          match: kube.*
+          host: evict-lgtm
+          port: 3100
+          labels: shipper=fluent-bit, node=${NODE_NAME}, namespace=$kubernetes['namespace_name'], pod=$kubernetes['pod_name'], container=$kubernetes['container_name']
+          remove_keys: kubernetes, stream, _p, time
+          drop_single_key: raw
+          line_format: key_value
+          retry_limit: false
+
+        - name: loki
+          match: audit
+          host: evict-lgtm
+          port: 3100
+          labels: shipper=fluent-bit, job=k8s-audit, verb=$verb, namespace=$objectRef['namespace']
+          line_format: json
+          retry_limit: false
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluent-bit
+  namespace: logging
+  labels: {app: fluent-bit}
+spec:
+  selector:
+    matchLabels: {app: fluent-bit}
+  template:
+    metadata:
+      labels: {app: fluent-bit}
+    spec:
+      serviceAccountName: log-shipper
+      # Node-pressure eviction picks lower-priority pods first; the shipper must outlive the workloads.
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: fluent-bit
+          image: fluent/fluent-bit:5.1.5
+          args: ["-c", "/fluent-bit/etc/conf/fluent-bit.yaml"]
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef: {fieldPath: spec.nodeName}
+          ports:
+            - {name: http, containerPort: 2020}
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 256Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: state, mountPath: /var/lib/fluent-bit}
+            - {name: config, mountPath: /fluent-bit/etc/conf}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: state
+          hostPath: {path: /var/lib/fluent-bit, type: DirectoryOrCreate}
+        - name: config
+          configMap: {name: fluent-bit}

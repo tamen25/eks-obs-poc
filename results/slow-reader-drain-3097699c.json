@@ -1,0 +1,190 @@
+{
+  "truth_seq": 300028,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 102270,
+      "unique_seq": 102268,
+      "duplicates": 0,
+      "missing": 197760,
+      "missing_ranges": [
+        "102269-300028"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300028,
+      "missing_ranges": [
+        "1-300028"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 162906,
+      "unique_seq": 162904,
+      "duplicates": 0,
+      "missing": 137124,
+      "missing_ranges": [
+        "162905-300028"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 9993,
+      "unique_seq": 9991,
+      "duplicates": 0,
+      "missing": 290037,
+      "missing_ranges": [
+        "9992-300028"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 9321,
+      "unique_seq": 9319,
+      "duplicates": 0,
+      "missing": 290709,
+      "missing_ranges": [
+        "9320-300028"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 12592,
+      "unique_seq": 12590,
+      "duplicates": 0,
+      "missing": 287438,
+      "missing_ranges": [
+        "12591-300028"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 300032,
+      "unique_seq": 300028,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 268808,
+      "unique_seq": 268806,
+      "duplicates": 0,
+      "missing": 31222,
+      "missing_ranges": [
+        "268807-300028"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-3097699c\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/slow-reader-drain-3097699c to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "slow-reader-drain",
+  "run": "3097699c",
+  "pod": "slow-reader-drain-3097699c",
+  "uid": "05e7bc0c-73e5-481c-a743-439c07b9de59",
+  "observations": [
+    {
+      "t": "evicted+5s processes holding deleted pod logs",
+      "holders": [
+        "fluent-bit=1",
+        "fluent-bit=1",
+        "otelcol-contrib=1",
+        "vector=1"
+      ]
+    },
+    {
+      "t": "evicted+20s processes holding deleted pod logs",
+      "holders": [
+        "fluent-bit=1",
+        "fluent-bit=1",
+        "otelcol-contrib=1",
+        "vector=1"
+      ]
+    },
+    {
+      "t": "evicted+60s processes holding deleted pod logs",
+      "holders": [
+        "otelcol-contrib=1",
+        "vector=1"
+      ]
+    },
+    {
+      "t": "evicted+120s processes holding deleted pod logs",
+      "holders": [
+        "otelcol-contrib=1",
+        "vector=1"
+      ]
+    }
+  ],
+  "at": "2026-10-23T11:48:21.072613+00:00"
+}

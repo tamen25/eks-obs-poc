@@ -1,0 +1,113 @@
+# Watches pods and prints one JSON line per terminal state change. The log
+# shippers pick it up like any other container log, so the facts that only
+# live on the pod object (and vanish when it is deleted) end up in Loki:
+#   - the DisruptionTarget condition, the only trace an Eviction-API eviction
+#     (kubectl drain, cluster-autoscaler, Karpenter) leaves, since it emits no
+#     Evicted event;
+#   - status.reason/message for kubelet evictions;
+#   - each container's termination message, which holds the last log lines
+#     when terminationMessagePolicy is FallbackToLogsOnError.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pod-lifecycle
+  namespace: logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-lifecycle
+rules:
+  - apiGroups: [""]
+    resources: [pods]
+    verbs: [list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pod-lifecycle
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pod-lifecycle
+subjects:
+  - kind: ServiceAccount
+    name: pod-lifecycle
+    namespace: logging
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pod-lifecycle
+  namespace: logging
+data:
+  watch.sh: |
+    #!/bin/sh
+    # kubectl's watch ends after the server-side timeout; loop to keep it alive.
+    while true; do
+      kubectl get pods --all-namespaces --watch --output-watch-events -o json \
+        | jq -c --unbuffered -f /scripts/filter.jq
+      sleep 1
+    done
+  filter.jq: |
+    # Only pods that are ending: failed, being deleted, deleted, or marked for disruption.
+    .type as $event
+    | .object
+    | select(
+        $event == "DELETED"
+        or .status.phase == "Failed"
+        or .metadata.deletionTimestamp != null
+        or ([.status.conditions[]? | select(.type == "DisruptionTarget")] | length > 0)
+      )
+    | {
+        lifecycle: $event,
+        namespace: .metadata.namespace,
+        pod: .metadata.name,
+        uid: .metadata.uid,
+        node: .spec.nodeName,
+        owner: ((.metadata.ownerReferences // [])[0] | if . then "\(.kind)/\(.name)" else null end),
+        phase: .status.phase,
+        reason: .status.reason,
+        message: .status.message,
+        deleting: (.metadata.deletionTimestamp != null),
+        disruption: ([.status.conditions[]? | select(.type == "DisruptionTarget")
+                      | {reason, message, at: .lastTransitionTime}] | first),
+        containers: [.status.containerStatuses[]?
+                     | select(.state.terminated)
+                     | {name, exitCode: .state.terminated.exitCode,
+                        reason: .state.terminated.reason,
+                        lastLines: (.state.terminated.message // "" | split("\n") | map(select(length > 0)) | .[-10:])}]
+      }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-lifecycle
+  namespace: logging
+  labels: {app: pod-lifecycle}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: pod-lifecycle}
+  template:
+    metadata:
+      labels: {app: pod-lifecycle}
+    spec:
+      serviceAccountName: pod-lifecycle
+      priorityClassName: system-cluster-critical
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: watch
+          image: alpine/k8s:1.34.12
+          command: ["/bin/sh", "/scripts/watch.sh"]
+          resources:
+            requests: {cpu: 10m, memory: 32Mi}
+            limits: {memory: 128Mi}
+          volumeMounts:
+            - {name: scripts, mountPath: /scripts}
+      volumes:
+        - name: scripts
+          configMap: {name: pod-lifecycle}

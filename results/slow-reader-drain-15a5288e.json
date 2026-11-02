@@ -1,0 +1,178 @@
+{
+  "truth_seq": 300072,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300072,
+      "missing_ranges": [
+        "1-300072"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 300076,
+      "unique_seq": 300072,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"slow-reader-drain-15a5288e\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/slow-reader-drain-15a5288e to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "slow-reader-drain",
+  "run": "15a5288e",
+  "pod": "slow-reader-drain-15a5288e",
+  "uid": "158783d8-c843-46b2-856e-754382068671",
+  "observations": [
+    {
+      "t": "evicted+5s processes holding deleted pod logs",
+      "holders": [
+        "fluent-bit=1"
+      ]
+    },
+    {
+      "t": "evicted+20s processes holding deleted pod logs",
+      "holders": [
+        "fluent-bit=1"
+      ]
+    },
+    {
+      "t": "evicted+60s processes holding deleted pod logs",
+      "holders": []
+    },
+    {
+      "t": "evicted+120s processes holding deleted pod logs",
+      "holders": []
+    }
+  ],
+  "at": "2026-10-23T11:55:33.791336+00:00"
+}

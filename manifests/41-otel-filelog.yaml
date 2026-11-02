@@ -1,0 +1,93 @@
+# OpenTelemetry Collector filelog receiver. Discovery and reading share one
+# poll loop (poll_interval, default 200ms). The container operator parses the
+# CRI format and sets k8s.namespace.name / k8s.pod.name / k8s.container.name
+# from the file path, which Loki's OTLP endpoint turns into index labels.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-filelog
+  namespace: logging
+data:
+  config.yaml: |
+    receivers:
+      file_log:
+        include: [/var/log/pods/*/*/*.log]
+        exclude: [/var/log/pods/logging_otel-filelog-*/*/*.log]
+        start_at: beginning
+        include_file_path: true
+        storage: file_storage
+        operators:
+          - type: container
+            id: container-parser
+
+    extensions:
+      file_storage:
+        directory: /var/lib/otelcol
+        create_directory: true
+
+    processors:
+      resource:
+        attributes:
+          # service.name becomes Loki's service_name label: the shipper marker for this column.
+          - {key: service.name, value: otel-filelog, action: upsert}
+      batch:
+        timeout: 1s
+        # Uncapped batches of long lines exceeded Loki's 4 MiB internal gRPC message limit
+        # (HTTP 503 "received message larger than max"). The rejected batch was retried forever
+        # and blocked the persistent queue behind it.
+        send_batch_size: 1000
+        send_batch_max_size: 1000
+
+    exporters:
+      otlp_http/loki:
+        endpoint: http://evict-lgtm:3100/otlp
+        sending_queue:
+          storage: file_storage
+        retry_on_failure:
+          enabled: true
+          max_elapsed_time: 0
+
+    service:
+      extensions: [file_storage]
+      pipelines:
+        logs:
+          receivers: [file_log]
+          processors: [resource, batch]
+          exporters: [otlp_http/loki]
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: otel-filelog
+  namespace: logging
+  labels: {app: otel-filelog}
+spec:
+  selector:
+    matchLabels: {app: otel-filelog}
+  template:
+    metadata:
+      labels: {app: otel-filelog}
+    spec:
+      priorityClassName: system-node-critical
+      securityContext:
+        runAsUser: 0
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: otelcol
+          image: otel/opentelemetry-collector-contrib:0.162.0
+          args: ["--config=/conf/config.yaml"]
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 512Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: state, mountPath: /var/lib/otelcol}
+            - {name: config, mountPath: /conf}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: state
+          hostPath: {path: /var/lib/otelcol, type: DirectoryOrCreate}
+        - name: config
+          configMap: {name: otel-filelog}

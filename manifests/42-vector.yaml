@@ -1,0 +1,74 @@
+# Vector kubernetes_logs source: discovers pods from the API, tails their files,
+# and keeps metadata for deleted pods for delay_deletion_ms.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vector
+  namespace: logging
+data:
+  vector.yaml: |
+    data_dir: /var/lib/vector
+
+    sources:
+      pods:
+        type: kubernetes_logs
+        # How often the file list is re-globbed for new files.
+        glob_minimum_cooldown_ms: 1000
+        # Keep a deleted pod's metadata this long so late lines still get labels.
+        delay_deletion_ms: 60000
+
+    sinks:
+      loki:
+        type: loki
+        inputs: [pods]
+        endpoint: http://evict-lgtm:3100
+        encoding:
+          codec: text
+        labels:
+          shipper: vector
+          namespace: "{{ kubernetes.pod_namespace }}"
+          pod: "{{ kubernetes.pod_name }}"
+          container: "{{ kubernetes.container_name }}"
+        buffer:
+          type: disk
+          max_size: 268435488
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vector
+  namespace: logging
+  labels: {app: vector}
+spec:
+  selector:
+    matchLabels: {app: vector}
+  template:
+    metadata:
+      labels: {app: vector}
+    spec:
+      serviceAccountName: log-shipper
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: vector
+          image: timberio/vector:0.59.0-debian
+          args: ["--config", "/etc/vector/vector.yaml"]
+          env:
+            - name: VECTOR_SELF_NODE_NAME
+              valueFrom:
+                fieldRef: {fieldPath: spec.nodeName}
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 512Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: state, mountPath: /var/lib/vector}
+            - {name: config, mountPath: /etc/vector}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: state
+          hostPath: {path: /var/lib/vector, type: DirectoryOrCreate}
+        - name: config
+          configMap: {name: vector}

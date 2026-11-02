@@ -1,0 +1,40 @@
+== scenario shipper-restart  run=f952259f  pod=shipper-restart-f952259f
+   Every shipper is restarted while the pod logs 20 lines/s; checks for gaps and duplicates.
+  [shippers restarted] pod={'exists': True, 'phase': 'Running', 'reason': None, 'message': None, 'deleting': False, 'exit_code': None, 'term_reason': None, 'term_message_tail': [], 'container_id': 'containerd://0a5ca3732c9560ec491881496f898ff742d83973e6445342b17159de984dfdb4'} logs=ok, 438 seq lines (last seq=438) files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 738 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  fluent-bit-defaults    399    397    0      341  ['1-341'] ['SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  fb-proof            741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  promtail-sd         741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  promtail-static     741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  alloy               741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  otel-filelog        741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "shipper-restart-f952259f"}
+  vector              741    738    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "shipper-restart-f952259f"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/shipper-restart-f952259f to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+
+#### shipper-restart: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 738                        0
+  fluent-bit-defaults         0/1              341 of 738                        0
+  fb-proof                    1/1                0 of 738                        0
+  promtail-sd                 1/1                0 of 738                        0
+  promtail-static             1/1                0 of 738                        0
+  alloy                       1/1                0 of 738                        0
+  otel-filelog                1/1                0 of 738                        0
+  vector                      1/1                0 of 738                        0

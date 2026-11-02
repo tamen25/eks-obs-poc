@@ -1,0 +1,319 @@
+{
+  "uid": "poc-scenarios",
+  "title": "6 · Test scenarios",
+  "description": "Lines written vs lines received for each run of ./run.sh scenarios.",
+  "tags": [
+    "logging-poc"
+  ],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "logging-poc"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "Dashboards"
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "cluster",
+        "label": "Cluster",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "query": {
+          "type": 1,
+          "label": "cluster",
+          "stream": "",
+          "refId": "cluster"
+        },
+        "definition": "label_values(cluster)",
+        "refresh": 2,
+        "sort": 1
+      },
+      {
+        "name": "run",
+        "label": "Run contains",
+        "type": "textbox",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "text",
+      "title": "",
+      "options": {
+        "mode": "markdown",
+        "content": "`./run.sh scenarios` runs each situation below once. Every line a scenario writes says which scenario and run it belongs to and how many lines that scenario writes in total, so this dashboard can compare. **100% means every line arrived.**\n\n| Scenario | What happens |\n|---|---|\n| evict-api | evicted through the Eviction API with no grace period (like a drain) |\n| evict-kubelet | outgrows its ephemeral-storage limit; the kubelet evicts it |\n| force-delete | deleted with --grace-period=0 --force as soon as it runs |\n| short-lived | lives about a second, deleted as soon as it completes |\n| oom-kill | writes its lines, then goes over its memory limit and is OOM-killed |\n| crashloop | 4 pods that exit straight away; their first 3 attempts are counted |\n| burst | 300,000 lines, fast enough that the kubelet rotates the log file |\n| init, sidecar, stdout, stderr | the containers of one pod, one stream each |\n| long-100k, long-400k, after-long | a 100 KB line, a 400 KB line (Loki keeps the first 256 KB) and 50 lines after them |"
+      },
+      "id": 1,
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 13
+      }
+    },
+    {
+      "type": "bargauge",
+      "title": "Delivered",
+      "description": "Lines received as a share of lines written.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "sum by (run, scenario) (count_over_time({cluster=\"$cluster\", namespace=\"scenarios\"} | logfmt | keep scenario, run, expected | scenario!=\"\" | run=~\".*$run.*\" [$__range])) / max by (run, scenario) (max_over_time({cluster=\"$cluster\", namespace=\"scenarios\"} | logfmt | keep scenario, run, expected | scenario!=\"\" | run=~\".*$run.*\" | unwrap expected | __error__=\"\" [$__range]))",
+          "legendFormat": "{{scenario}} · run {{run}}",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 0.9
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "max": 1
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "valueMode": "color",
+        "namePlacement": "left",
+        "sizing": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "id": 2,
+      "gridPos": {
+        "x": 0,
+        "y": 13,
+        "w": 12,
+        "h": 14
+      }
+    },
+    {
+      "type": "bargauge",
+      "title": "Lines received",
+      "description": "How many of each scenario's lines are in Loki.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "sum by (run, scenario) (count_over_time({cluster=\"$cluster\", namespace=\"scenarios\"} | logfmt | keep scenario, run, expected | scenario!=\"\" | run=~\".*$run.*\" [$__range]))",
+          "legendFormat": "{{scenario}} · run {{run}}",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "valueMode": "color",
+        "namePlacement": "left",
+        "sizing": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "id": 3,
+      "gridPos": {
+        "x": 12,
+        "y": 13,
+        "w": 12,
+        "h": 14
+      }
+    },
+    {
+      "type": "logs",
+      "title": "Why each scenario pod ended (pod-lifecycle watcher)",
+      "description": "Evicted, OOMKilled, EvictionByEvictionAPI, Error: one record per change.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{cluster=\"$cluster\", namespace=\"logging\", container=\"watch\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", cname=\"containers[0].name\", creason=\"containers[0].reason\", exit=\"containers[0].exitCode\", last=\"containers[0].lastLines\" | ns=\"scenarios\" | phase=\"Failed\" or lifecycle=\"DELETED\" or disruption!=\"\" | line_format \"{{.pod_name}}  {{.lifecycle}}  phase={{.phase}}  reason={{.reason}}  disruption={{.disruption}}  container {{.creason}} exit={{.exit}}\"",
+          "legendFormat": "",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "prettifyLogMessage": false,
+        "dedupStrategy": "none"
+      },
+      "id": 4,
+      "gridPos": {
+        "x": 0,
+        "y": 27,
+        "w": 24,
+        "h": 9
+      }
+    },
+    {
+      "type": "logs",
+      "title": "Kubernetes events in the scenarios namespace",
+      "description": "Scheduling, pulls, evictions, back-offs and kills.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{cluster=\"$cluster\", job=\"kubernetes-events\", namespace=\"scenarios\"} | json | line_format \"{{.reason}}  {{.object}}  {{.message}}\"",
+          "legendFormat": "",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "prettifyLogMessage": false,
+        "dedupStrategy": "none"
+      },
+      "id": 5,
+      "gridPos": {
+        "x": 0,
+        "y": 36,
+        "w": 12,
+        "h": 10
+      }
+    },
+    {
+      "type": "logs",
+      "title": "Scenario lines",
+      "description": "The lines themselves (long ones are cut off in the panel, not in Loki).",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{cluster=\"$cluster\", namespace=\"scenarios\"} |= \"run=\" |~ \".*$run.*\"",
+          "legendFormat": "",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "prettifyLogMessage": false,
+        "dedupStrategy": "none"
+      },
+      "id": 6,
+      "gridPos": {
+        "x": 12,
+        "y": 36,
+        "w": 12,
+        "h": 10
+      }
+    }
+  ]
+}

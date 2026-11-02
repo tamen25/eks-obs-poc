@@ -1,0 +1,658 @@
+{
+  "uid": "poc-evicted",
+  "title": "3 · Evicted and disrupted pods",
+  "description": "Why pods ended, and their last lines, even after the kubelet deleted the log files.",
+  "tags": [
+    "logging-poc"
+  ],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "links": [
+    {
+      "type": "dashboards",
+      "tags": [
+        "logging-poc"
+      ],
+      "asDropdown": false,
+      "includeVars": false,
+      "keepTime": true,
+      "title": "Dashboards"
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "cluster",
+        "label": "Cluster",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "query": {
+          "type": 1,
+          "label": "cluster",
+          "stream": "",
+          "refId": "cluster"
+        },
+        "definition": "label_values(cluster)",
+        "refresh": 2,
+        "sort": 1
+      },
+      {
+        "name": "namespace",
+        "label": "Namespace",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "query": {
+          "type": 1,
+          "label": "namespace",
+          "stream": "{cluster=\"$cluster\", container=~\".+\"}",
+          "refId": "namespace"
+        },
+        "definition": "label_values({cluster=\"$cluster\", container=~\".+\"}, namespace)",
+        "refresh": 2,
+        "sort": 1,
+        "multi": true,
+        "includeAll": true,
+        "allValue": ".+",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        }
+      },
+      {
+        "name": "pod",
+        "label": "Pod contains",
+        "type": "textbox",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "text",
+      "title": "",
+      "options": {
+        "mode": "markdown",
+        "content": "| How a pod ends | What shows up here |\n|---|---|\n| **Kubelet eviction** (node short of memory or disk) | an `Evicted` event with the reason; the pod record says `reason=Evicted` |\n| **Eviction API** (drain, Karpenter, autoscaler) | no `Evicted` event; the pod record says `disruption=EvictionByEvictionAPI` |\n| **Preemption or taint** | `Preempted` or `TaintManagerEviction` events |\n| **Out of memory** | the container record says `OOMKilled`; the kernel line is on [4 · Node logs](/d/poc-nodes) |\n| **Crash loop** | `BackOff` events, one more after each restart |\n| **Force delete** | a `DELETED` pod record with no other reason |\n\nThe logs stay in Loki after the node deletes them: type the pod name in **Pod contains** to read its last lines below."
+      },
+      "id": 1,
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 9
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Kubelet evictions",
+      "description": "Evicted events: the kubelet removed a pod because the node ran short of a resource.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "sum(count_over_time({cluster=\"$cluster\", job=\"kubernetes-events\", reason=\"Evicted\", namespace=~\"$namespace\"}[$__range]))",
+          "legendFormat": "",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "0",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      },
+      "id": 2,
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 4,
+        "h": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Eviction API",
+      "description": "Pods removed through the Eviction API: drains, Karpenter, cluster autoscaler.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "count(sum by (pod_name) (count_over_time({cluster=\"$cluster\", namespace=\"logging\", container=\"watch\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", cname=\"containers[0].name\", creason=\"containers[0].reason\", exit=\"containers[0].exitCode\", last=\"containers[0].lastLines\" | ns=~\"$namespace\" | disruption=\"EvictionByEvictionAPI\" [$__range])))",
+          "legendFormat": "",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "0",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      },
+      "id": 3,
+      "gridPos": {
+        "x": 4,
+        "y": 9,
+        "w": 4,
+        "h": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Out of memory",
+      "description": "Pods with a container killed for going over its memory limit.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "count(sum by (pod_name) (count_over_time({cluster=\"$cluster\", namespace=\"logging\", container=\"watch\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", cname=\"containers[0].name\", creason=\"containers[0].reason\", exit=\"containers[0].exitCode\", last=\"containers[0].lastLines\" | ns=~\"$namespace\" | creason=\"OOMKilled\" [$__range])))",
+          "legendFormat": "",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "0",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      },
+      "id": 4,
+      "gridPos": {
+        "x": 8,
+        "y": 9,
+        "w": 4,
+        "h": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Crash-looping pods",
+      "description": "Pods with BackOff events: a container that keeps exiting.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "count(sum by (object) (count_over_time({cluster=\"$cluster\", job=\"kubernetes-events\", reason=\"BackOff\", namespace=~\"$namespace\"}[$__range])))",
+          "legendFormat": "",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "0",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      },
+      "id": 5,
+      "gridPos": {
+        "x": 12,
+        "y": 9,
+        "w": 4,
+        "h": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Preempted or tainted",
+      "description": "Pods the scheduler preempted for higher-priority pods, or removed by a NoExecute taint.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "sum(count_over_time({cluster=\"$cluster\", job=\"kubernetes-events\", reason=~\"Preempted|TaintManagerEviction\", namespace=~\"$namespace\"}[$__range]))",
+          "legendFormat": "",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "0",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      },
+      "id": 6,
+      "gridPos": {
+        "x": 16,
+        "y": 9,
+        "w": 4,
+        "h": 4
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Pods that ended",
+      "description": "Pods that failed or were deleted, for any reason, normal rollouts included.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "count(sum by (pod_name) (count_over_time({cluster=\"$cluster\", namespace=\"logging\", container=\"watch\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", cname=\"containers[0].name\", creason=\"containers[0].reason\", exit=\"containers[0].exitCode\", last=\"containers[0].lastLines\" | ns=~\"$namespace\" | phase=\"Failed\" or lifecycle=\"DELETED\" [$__range])))",
+          "legendFormat": "",
+          "queryType": "instant"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "0",
+          "decimals": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center"
+      },
+      "id": 7,
+      "gridPos": {
+        "x": 20,
+        "y": 9,
+        "w": 4,
+        "h": 4
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Disruption events over time",
+      "description": "Kubernetes events that mark a pod being stopped or failing.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "sum by (reason) (count_over_time({cluster=\"$cluster\", job=\"kubernetes-events\", namespace=~\"$namespace\", reason=~\"Evicted|Killing|Preempted|Preempting|TaintManagerEviction|EvictionThresholdMet|OOMKilling|BackOff\"}[$__auto]))",
+          "legendFormat": "{{reason}}",
+          "queryType": "range"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 70,
+            "lineWidth": 1,
+            "stacking": {
+              "mode": "normal"
+            },
+            "showPoints": "never"
+          },
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "calcs": [
+            "sum"
+          ],
+          "sortBy": "Total",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "id": 8,
+      "gridPos": {
+        "x": 0,
+        "y": 13,
+        "w": 24,
+        "h": 8
+      }
+    },
+    {
+      "type": "logs",
+      "title": "Why each pod ended (pod-lifecycle watcher)",
+      "description": "One record per change in a pod's final moments, from a watcher on the API server. 'last lines' is the container's termination message, set when it uses terminationMessagePolicy: FallbackToLogsOnError.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{cluster=\"$cluster\", namespace=\"logging\", container=\"watch\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", cname=\"containers[0].name\", creason=\"containers[0].reason\", exit=\"containers[0].exitCode\", last=\"containers[0].lastLines\" | ns=~\"$namespace\" | pod_name=~\".*$pod.*\" | phase=\"Failed\" or lifecycle=\"DELETED\" or disruption!=\"\" | line_format \"{{.ns}}/{{.pod_name}}  {{.lifecycle}}  phase={{.phase}}  reason={{.reason}}  disruption={{.disruption}}  container={{.cname}} {{.creason}} exit={{.exit}}  last lines: {{.last}}\"",
+          "legendFormat": "",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "prettifyLogMessage": false,
+        "dedupStrategy": "none"
+      },
+      "id": 9,
+      "gridPos": {
+        "x": 0,
+        "y": 21,
+        "w": 24,
+        "h": 10
+      }
+    },
+    {
+      "type": "logs",
+      "title": "Eviction and termination events",
+      "description": "Evicted = kubelet eviction. Killing without Evicted = deleted or evicted through the API.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{cluster=\"$cluster\", job=\"kubernetes-events\", namespace=~\"$namespace\", reason=~\"Evicted|Killing|Preempted|Preempting|TaintManagerEviction|EvictionThresholdMet|OOMKilling|BackOff\"} | object=~\".*$pod.*\" | json | line_format \"{{.reason}}  {{.kind}}/{{.object}}  {{.message}}\"",
+          "legendFormat": "",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "prettifyLogMessage": false,
+        "dedupStrategy": "none"
+      },
+      "id": 10,
+      "gridPos": {
+        "x": 0,
+        "y": 31,
+        "w": 12,
+        "h": 12
+      }
+    },
+    {
+      "type": "logs",
+      "title": "Last lines of the pod",
+      "description": "Type part of the pod name in 'Pod contains' at the top. These lines are in Loki even when the node has already deleted the pod's log files.",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{cluster=\"$cluster\", namespace=~\"$namespace\", container=~\".+\"} | pod=~\".*$pod.*\"",
+          "legendFormat": "",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "sortOrder": "Descending",
+        "prettifyLogMessage": false,
+        "dedupStrategy": "none"
+      },
+      "id": 11,
+      "gridPos": {
+        "x": 12,
+        "y": 31,
+        "w": 12,
+        "h": 12
+      }
+    }
+  ]
+}

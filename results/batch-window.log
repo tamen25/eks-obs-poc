@@ -1,0 +1,498 @@
+== scenario api-eviction-fast  run=1cdf72cb  pod=api-eviction-fast-1cdf72cb
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-1cdf72cb" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 86 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-1cdf72cb"}
+  fluent-bit-defaults      0      0    0       86  ['1-86'] []
+  fb-proof             89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-1cdf72cb"}
+  promtail-sd          89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-1cdf72cb"}
+  promtail-static      89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-1cdf72cb"}
+  alloy                89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-1cdf72cb"}
+  otel-filelog         89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-1cdf72cb"}
+  vector               89     86    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-1cdf72cb"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-1cdf72cb to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=874fb74f  pod=api-eviction-fast-874fb74f
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-874fb74f" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 92 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-874fb74f"}
+  fluent-bit-defaults      0      0    0       92  ['1-92'] []
+  fb-proof              0      0    0       92  ['1-92'] []
+  promtail-sd          95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-874fb74f"}
+  promtail-static      95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-874fb74f"}
+  alloy                95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-874fb74f"}
+  otel-filelog         95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-874fb74f"}
+  vector               95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-874fb74f"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-874fb74f to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=0dfb7c07  pod=api-eviction-fast-0dfb7c07
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-0dfb7c07" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 98 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-0dfb7c07"}
+  fluent-bit-defaults      0      0    0       98  ['1-98'] []
+  fb-proof              0      0    0       98  ['1-98'] []
+  promtail-sd         101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-0dfb7c07"}
+  promtail-static     101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-0dfb7c07"}
+  alloy               101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-0dfb7c07"}
+  otel-filelog        101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-0dfb7c07"}
+  vector              101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-0dfb7c07"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-0dfb7c07 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=b08bd4df  pod=api-eviction-fast-b08bd4df
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-b08bd4df" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-b08bd4df"}
+  fluent-bit-defaults      0      0    0       95  ['1-95'] []
+  fb-proof              0      0    0       95  ['1-95'] []
+  promtail-sd          98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-b08bd4df"}
+  promtail-static      98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-b08bd4df"}
+  alloy                98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-b08bd4df"}
+  otel-filelog         98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-b08bd4df"}
+  vector               98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-b08bd4df"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-b08bd4df to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=33f3a50f  pod=api-eviction-fast-33f3a50f
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-33f3a50f" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-33f3a50f"}
+  fluent-bit-defaults      0      0    0       95  ['1-95'] []
+  fb-proof              0      0    0       95  ['1-95'] []
+  promtail-sd          98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-33f3a50f"}
+  promtail-static      98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-33f3a50f"}
+  alloy                98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-33f3a50f"}
+  otel-filelog         98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-33f3a50f"}
+  vector               98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-33f3a50f"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-33f3a50f to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=6c8abe72  pod=api-eviction-fast-6c8abe72
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-6c8abe72" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 97 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6c8abe72"}
+  fluent-bit-defaults      0      0    0       97  ['1-97'] []
+  fb-proof            100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6c8abe72"}
+  promtail-sd         100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6c8abe72"}
+  promtail-static     100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6c8abe72"}
+  alloy               100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6c8abe72"}
+  otel-filelog        100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-6c8abe72"}
+  vector              100     97    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6c8abe72"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-6c8abe72 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=6df304ee  pod=api-eviction-fast-6df304ee
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-6df304ee" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 95 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6df304ee"}
+  fluent-bit-defaults      0      0    0       95  ['1-95'] []
+  fb-proof              0      0    0       95  ['1-95'] []
+  promtail-sd          98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6df304ee"}
+  promtail-static      98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6df304ee"}
+  alloy                98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6df304ee"}
+  otel-filelog         98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-6df304ee"}
+  vector               98     95    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-6df304ee"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-6df304ee to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast  run=915a3805  pod=api-eviction-fast-915a3805
+   Pod evicted ~1s after it becomes Ready, with no grace period: tests shipper discovery latency.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-915a3805" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 96 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-915a3805"}
+  fluent-bit-defaults      0      0    0       96  ['1-96'] []
+  fb-proof              0      0    0       96  ['1-96'] []
+  promtail-sd          99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-915a3805"}
+  promtail-static      99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-915a3805"}
+  alloy                99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-915a3805"}
+  otel-filelog         99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-915a3805"}
+  vector               99     96    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-915a3805"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-915a3805 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=ec5c668b  pod=api-eviction-fast-grace-ec5c668b
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-ec5c668b" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-ec5c668b"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-ec5c668b"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-ec5c668b"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-ec5c668b"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-ec5c668b"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-ec5c668b"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-ec5c668b"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-ec5c668b to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=60934b5c  pod=api-eviction-fast-grace-60934b5c
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-60934b5c" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-60934b5c"}
+  fluent-bit-defaults      0      0    0      100  ['1-100'] []
+  fb-proof            103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-60934b5c"}
+  promtail-sd         103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-60934b5c"}
+  promtail-static     103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-60934b5c"}
+  alloy               103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-60934b5c"}
+  otel-filelog        103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-60934b5c"}
+  vector              103    100    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-60934b5c"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-60934b5c to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=75a41b95  pod=api-eviction-fast-grace-75a41b95
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-75a41b95" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 141 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  fluent-bit-defaults    144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  fb-proof            144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  promtail-sd         144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  promtail-static     144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  alloy               144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  otel-filelog        144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-75a41b95"}
+  vector              144    141    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-75a41b95"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-75a41b95 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=9ddccaef  pod=api-eviction-fast-grace-9ddccaef
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-9ddccaef" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-9ddccaef"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-9ddccaef"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-9ddccaef"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-9ddccaef"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-9ddccaef"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-9ddccaef"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-9ddccaef"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-9ddccaef to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=62d04a9e  pod=api-eviction-fast-grace-62d04a9e
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-62d04a9e" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 142 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  fluent-bit-defaults    145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  fb-proof            145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  promtail-sd         145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  promtail-static     145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  alloy               145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  otel-filelog        145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-62d04a9e"}
+  vector              145    142    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-62d04a9e"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-62d04a9e to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=355fbb4e  pod=api-eviction-fast-grace-355fbb4e
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-355fbb4e" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-355fbb4e"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-355fbb4e"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-355fbb4e"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-355fbb4e"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-355fbb4e"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-355fbb4e"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-355fbb4e"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-355fbb4e to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=be0455c2  pod=api-eviction-fast-grace-be0455c2
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-be0455c2" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 99 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-be0455c2"}
+  fluent-bit-defaults      0      0    0       99  ['1-99'] []
+  fb-proof            102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-be0455c2"}
+  promtail-sd         102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-be0455c2"}
+  promtail-static     102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-be0455c2"}
+  alloy               102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-be0455c2"}
+  otel-filelog        102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-be0455c2"}
+  vector              102     99    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-be0455c2"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-be0455c2 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+== scenario api-eviction-fast-grace  run=c636595c  pod=api-eviction-fast-grace-c636595c
+   api-eviction-fast plus a 12s log-grace sidecar: longer than fb-proof's 10s refresh_interval.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "api-eviction-fast-grace-c636595c" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 98 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-c636595c"}
+  fluent-bit-defaults      0      0    0       98  ['1-98'] []
+  fb-proof            101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-c636595c"}
+  promtail-sd         101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-c636595c"}
+  promtail-static     101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-c636595c"}
+  alloy               101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-c636595c"}
+  otel-filelog        101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "api-eviction-fast-grace-c636595c"}
+  vector              101     98    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "api-eviction-fast-grace-c636595c"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/api-eviction-fast-grace-c636595c to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: log-grace
+    - Started: Started container log-grace
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container log-grace
+    - Killing: Stopping container app
+
+#### api-eviction-fast: 8 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  8/8                0 of 754                        0
+  fluent-bit-defaults         0/8              754 of 754                        8
+  fb-proof                    2/8              571 of 754                        6
+  promtail-sd                 8/8                0 of 754                        0
+  promtail-static             8/8                0 of 754                        0
+  alloy                       8/8                0 of 754                        0
+  otel-filelog                8/8                0 of 754                        0
+  vector                      8/8                0 of 754                        0
+
+#### api-eviction-fast-grace: 8 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  8/8                0 of 877                        0
+  fluent-bit-defaults         2/8              594 of 877                        6
+  fb-proof                    8/8                0 of 877                        0
+  promtail-sd                 8/8                0 of 877                        0
+  promtail-static             8/8                0 of 877                        0
+  alloy                       8/8                0 of 877                        0
+  otel-filelog                8/8                0 of 877                        0
+  vector                      8/8                0 of 877                        0

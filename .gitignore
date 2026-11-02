@@ -1,0 +1,22 @@
+# Terraform state and plans hold passwords and private keys in plain text. Never commit them.
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+crash.*.log
+
+# Real settings and backend config; the .example files are the tracked templates.
+terraform.tfvars
+*.auto.tfvars
+backend.tf
+
+# Caches and generated output.
+.terraform/
+__pycache__/
+**/tests/render/out/
+**/tests/render/manifests/
+
+# End-to-end test work copies and throwaway certificates.
+**/tests/e2e/.work/
+**/tests/e2e/.certs/

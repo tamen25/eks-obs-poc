@@ -1,0 +1,52 @@
+== scenario node-disk-pressure  run=52b3066f  pod=node-disk-pressure-52b3066f
+   Node-pressure eviction on disk (nodefs threshold just below current), plus a crashed bystander pod.
+  node fs available=890873Mi -> evictionHard nodefs.available=889373Mi
+  [bystander before pressure] pod={'exists': True, 'phase': 'Failed', 'reason': None, 'message': None, 'deleting': False, 'exit_code': 3, 'term_reason': 'Error', 'term_message_tail': ['run=52b3066fb seq=49 phase=running', 'run=52b3066fb seq=50 phase=running', 'run=52b3066fb event=crash'], 'container_id': 'containerd://74fcbd9d54f5fbe545c41427ddffd6805ba76d26ce323cfa555588eec31080e2'} logs=ok, 50 seq lines (last seq=50) files=pod dir present, 1 log file(s)
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'The node was low on resource: ephemeral-storage. Threshold quantity: 889373Mi, available: 909171208Ki. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=52b3066f event=SIGTERM last_seq=170', 'run=52b3066f seq=171 phase=shutdown', 'run=52b3066f seq=172 phase=shutdown'], 'container_id': 'containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc'} logs=FAILED: unable to retrieve container logs for containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc files=pod dir present, 0 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'The node was low on resource: ephemeral-storage. Threshold quantity: 889373Mi, available: 909171208Ki. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=52b3066f event=SIGTERM last_seq=170', 'run=52b3066f seq=171 phase=shutdown', 'run=52b3066f seq=172 phase=shutdown'], 'container_id': 'containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc'} logs=FAILED: unable to retrieve container logs for containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc files=pod dir present, 0 log file(s)
+  [bystander after pressure] pod={'exists': True, 'phase': 'Failed', 'reason': None, 'message': None, 'deleting': False, 'exit_code': 3, 'term_reason': 'Error', 'term_message_tail': ['run=52b3066fb seq=49 phase=running', 'run=52b3066fb seq=50 phase=running', 'run=52b3066fb event=crash'], 'container_id': 'containerd://74fcbd9d54f5fbe545c41427ddffd6805ba76d26ce323cfa555588eec31080e2'} logs=FAILED: unable to retrieve container logs for containerd://74fcbd9d54f5fbe545c41427ddffd6805ba76d26ce323cfa555588eec31080e2 files=pod dir present, 0 log file(s)
+  node events:
+    NodeAllocatableEnforced: Updated Node Allocatable limit across pods
+    NodeHasSufficientMemory: Node evict-lab-worker status is now: NodeHasSufficientMemory
+    NodeHasNoDiskPressure: Node evict-lab-worker status is now: NodeHasNoDiskPressure
+    NodeHasSufficientPID: Node evict-lab-worker status is now: NodeHasSufficientPID
+    EvictionThresholdMet: Attempting to reclaim ephemeral-storage
+    NodeHasDiskPressure: Node evict-lab-worker status is now: NodeHasDiskPressure
+  waiting 15s for shippers to flush...
+
+  ground truth: 172 seq lines, events=['start', 'fill-start', 'fill-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit          176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  fluent-bit-defaults    176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  fb-proof            176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  promtail-sd         176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  promtail-static     176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  alloy               176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  otel-filelog        176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "node-disk-pressure-52b3066f"}
+  vector              176    172    0        0  [] ['start', 'fill-start', 'fill-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "node-disk-pressure-52b3066f"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/node-disk-pressure-52b3066f to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: The node was low on resource: ephemeral-storage. Threshold quantity: 889373Mi, available: 909171208Ki. 
+    - Killing: Stopping container app
+
+#### node-disk-pressure: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 172                        0
+  fluent-bit-defaults         1/1                0 of 172                        0
+  fb-proof                    1/1                0 of 172                        0
+  promtail-sd                 1/1                0 of 172                        0
+  promtail-static             1/1                0 of 172                        0
+  alloy                       1/1                0 of 172                        0
+  otel-filelog                1/1                0 of 172                        0
+  vector                      1/1                0 of 172                        0

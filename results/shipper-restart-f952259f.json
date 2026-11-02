@@ -1,0 +1,170 @@
+{
+  "truth_seq": 738,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 399,
+      "unique_seq": 397,
+      "duplicates": 0,
+      "missing": 341,
+      "missing_ranges": [
+        "1-341"
+      ],
+      "events": [
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 741,
+      "unique_seq": 738,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"shipper-restart-f952259f\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/shipper-restart-f952259f to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "shipper-restart",
+  "run": "f952259f",
+  "pod": "shipper-restart-f952259f",
+  "uid": "84de0e46-ec32-4064-9f77-43f1a79eebf8",
+  "observations": [
+    {
+      "t": "shippers restarted",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://0a5ca3732c9560ec491881496f898ff742d83973e6445342b17159de984dfdb4"
+      },
+      "kubectl_logs": "ok, 438 seq lines (last seq=438)",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:33:32.751767+00:00"
+}

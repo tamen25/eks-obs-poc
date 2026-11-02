@@ -1,0 +1,173 @@
+{
+  "truth_seq": 300027,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 300031,
+      "unique_seq": 300027,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-f8ba624f\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300027,
+      "missing_ranges": [
+        "1-300027"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 184177,
+      "unique_seq": 184175,
+      "duplicates": 0,
+      "missing": 115852,
+      "missing_ranges": [
+        "184176-300027"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-f8ba624f\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 188597,
+      "unique_seq": 188595,
+      "duplicates": 0,
+      "missing": 111432,
+      "missing_ranges": [
+        "188596-300027"
+      ],
+      "events": [
+        "start",
+        "burst-start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-f8ba624f\"}"
+      ]
+    },
+    "alloy": {
+      "lines": 300031,
+      "unique_seq": 300027,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-f8ba624f\"}"
+      ]
+    },
+    "otel-filelog": {
+      "lines": 300031,
+      "unique_seq": 300027,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"log-burst-kubelet-f8ba624f\"}"
+      ]
+    },
+    "vector": {
+      "lines": 300031,
+      "unique_seq": 300027,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-f8ba624f\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-kubelet-f8ba624f to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-kubelet",
+  "run": "f8ba624f",
+  "pod": "log-burst-kubelet-f8ba624f",
+  "uid": "faf815cd-5e3c-42eb-ab0c-9ed85bdb4a8e",
+  "observations": [
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=f8ba624f event=SIGTERM last_seq=300025",
+          "run=f8ba624f seq=300026 phase=shutdown",
+          "run=f8ba624f seq=300027 phase=shutdown"
+        ],
+        "container_id": "containerd://1bddd1451d363f0c8c792eda821fcc06e206ce7e7fba9a93a5720d5b0fc3045a"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://1bddd1451d363f0c8c792eda821fcc06e206ce7e7fba9a93a5720d5b0fc3045a",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+3s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=f8ba624f event=SIGTERM last_seq=300025",
+          "run=f8ba624f seq=300026 phase=shutdown",
+          "run=f8ba624f seq=300027 phase=shutdown"
+        ],
+        "container_id": "containerd://1bddd1451d363f0c8c792eda821fcc06e206ce7e7fba9a93a5720d5b0fc3045a"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://1bddd1451d363f0c8c792eda821fcc06e206ce7e7fba9a93a5720d5b0fc3045a",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:07:15.520817+00:00"
+}

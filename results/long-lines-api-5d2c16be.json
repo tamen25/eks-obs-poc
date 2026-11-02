@@ -1,0 +1,193 @@
+{
+  "truth_seq": 32,
+  "truth_events": [
+    "start",
+    "long-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "truth_long_lines": {
+    "31": 100048,
+    "32": 1000049
+  },
+  "shippers": {
+    "fluent-bit": {
+      "lines": 35,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start",
+        "long-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 32,
+      "missing_ranges": [
+        "1-32"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 35,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start",
+        "long-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    },
+    "promtail-sd": {
+      "lines": 32,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    },
+    "promtail-static": {
+      "lines": 35,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start",
+        "long-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    },
+    "alloy": {
+      "lines": 35,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start",
+        "long-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    },
+    "otel-filelog": {
+      "lines": 35,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start",
+        "long-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    },
+    "vector": {
+      "lines": 35,
+      "unique_seq": 31,
+      "duplicates": 0,
+      "missing": 1,
+      "missing_ranges": [
+        "32"
+      ],
+      "events": [
+        "start",
+        "long-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"long-lines-api-5d2c16be\"}"
+      ],
+      "long_lines": {
+        "31": 100048
+      }
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/long-lines-api-5d2c16be to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "long-lines-api",
+  "run": "5d2c16be",
+  "pod": "long-lines-api-5d2c16be",
+  "uid": "17e3f540-eced-4f4d-bcbf-6ba2f211e6e2",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"long-lines-api-5d2c16be\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T11:32:01.391458+00:00"
+}

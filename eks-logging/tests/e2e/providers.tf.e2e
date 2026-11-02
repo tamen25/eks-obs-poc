@@ -1,0 +1,50 @@
+# Copied over the stack's providers.tf in the e2e work copy, and nothing else: AWS calls go
+# to moto (a local AWS emulator), Kubernetes and Helm to the kind cluster. Every module,
+# variable and resource is the stack's own. The .e2e extension keeps fmt and tflint off it.
+
+provider "aws" {
+  region     = var.aws_region
+  access_key = "test"
+  secret_key = "test"
+
+  skip_credentials_validation = true
+  skip_metadata_api_check     = true
+  s3_use_path_style           = true
+  custom_ca_bundle            = var.moto_ca_bundle
+
+  endpoints {
+    ec2       = "https://127.0.0.1:25000"
+    eks       = "https://127.0.0.1:25000"
+    iam       = "https://127.0.0.1:25000"
+    kms       = "https://127.0.0.1:25000"
+    s3        = "https://127.0.0.1:25000"
+    s3control = "https://s3control.127.0.0.1.nip.io:25000" # S3 Control prefixes the account ID to the host
+    sts       = "https://127.0.0.1:25000"
+  }
+
+  default_tags {
+    tags = local.tags
+  }
+}
+
+variable "moto_ca_bundle" {
+  description = "Certificate of the moto server (run.sh up writes it)."
+  type        = string
+}
+
+# A cluster registered in moto by run.sh: supplies the ARN, OIDC issuer and VPC lookups.
+data "aws_eks_cluster" "this" {
+  name = var.cluster_name
+}
+
+provider "kubernetes" {
+  config_path    = pathexpand("~/.kube/config")
+  config_context = "kind-eks-logging-e2e"
+}
+
+provider "helm" {
+  kubernetes = {
+    config_path    = pathexpand("~/.kube/config")
+    config_context = "kind-eks-logging-e2e"
+  }
+}

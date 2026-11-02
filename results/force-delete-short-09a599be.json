@@ -1,0 +1,189 @@
+{
+  "truth_seq": 101,
+  "truth_events": [
+    "start",
+    "SIGTERM",
+    "exit"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 101,
+      "missing_ranges": [
+        "1-101"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 101,
+      "missing_ranges": [
+        "1-101"
+      ],
+      "events": [],
+      "label_sets": [],
+      "long_lines": {}
+    },
+    "fb-keep": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-via-agg": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 104,
+      "unique_seq": 101,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"force-delete-short-09a599be\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/force-delete-short-09a599be to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: log-grace",
+    "Started: Started container log-grace",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container log-grace",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "force-delete-short",
+  "run": "09a599be",
+  "pod": "force-delete-short-09a599be",
+  "uid": "1b521c19-09a2-4365-a740-c30c73c7d31f",
+  "observations": [
+    {
+      "t": "force-deleted+10s",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"force-delete-short-09a599be\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T19:59:33.631110+00:00"
+}

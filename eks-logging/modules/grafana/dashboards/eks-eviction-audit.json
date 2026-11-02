@@ -1,0 +1,44 @@
+{
+  "uid": "eks-eviction-audit",
+  "title": "EKS eviction audit",
+  "description": "Eviction-API calls and pod deletions from the EKS control plane audit log in CloudWatch. 201 = evicted, 429 = refused by a PodDisruptionBudget.",
+  "tags": ["kubernetes", "eks", "audit", "eviction"],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "editable": false,
+  "time": {"from": "now-24h", "to": "now"},
+  "panels": [
+    {
+      "id": 1,
+      "type": "table",
+      "title": "Eviction API calls",
+      "gridPos": {"x": 0, "y": 0, "w": 24, "h": 12},
+      "datasource": {"type": "cloudwatch", "uid": "cloudwatch"},
+      "targets": [
+        {
+          "refId": "A",
+          "queryMode": "Logs",
+          "region": "default",
+          "logGroups": [{"arn": "__AUDIT_LOG_GROUP_ARN__", "name": "__AUDIT_LOG_GROUP_NAME__"}],
+          "expression": "fields @timestamp, user.username, objectRef.namespace, objectRef.name, responseStatus.code\n| filter objectRef.resource = \"pods\" and objectRef.subresource = \"eviction\" and verb = \"create\"\n| sort @timestamp desc\n| limit 500"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "table",
+      "title": "Pod deletions by users and controllers (excluding the kubelet)",
+      "gridPos": {"x": 0, "y": 12, "w": 24, "h": 12},
+      "datasource": {"type": "cloudwatch", "uid": "cloudwatch"},
+      "targets": [
+        {
+          "refId": "A",
+          "queryMode": "Logs",
+          "region": "default",
+          "logGroups": [{"arn": "__AUDIT_LOG_GROUP_ARN__", "name": "__AUDIT_LOG_GROUP_NAME__"}],
+          "expression": "fields @timestamp, user.username, objectRef.namespace, objectRef.name, responseStatus.code\n| filter objectRef.resource = \"pods\" and verb = \"delete\" and ispresent(objectRef.name) and user.username not like /^system:node:/\n| sort @timestamp desc\n| limit 500"
+        }
+      ]
+    }
+  ]
+}

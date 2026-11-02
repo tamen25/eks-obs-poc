@@ -1,0 +1,16 @@
+# Copied into the e2e work copy as modules/loki/storage/e2e_override.tf. moto cannot run two
+# of the storage resources faithfully, so they are left out of the e2e run only:
+#   - bucket policies: moto ignores Condition blocks, so DenyInsecureTransport and
+#     DenyOutdatedTLS deny every request, TLS or not;
+#   - lifecycle rules: moto drops ObjectSizeGreaterThan from the filter it returns, so the
+#     AWS provider's consistency wait never completes.
+# Both are covered by modules/loki/storage/tests; check.sh compares Loki's real object keys
+# with the prefix the tier rule uses.
+
+resource "aws_s3_bucket_policy" "this" {
+  for_each = {}
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "this" {
+  for_each = {}
+}

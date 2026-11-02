@@ -1,0 +1,379 @@
+{
+  "truth_seq": 1828,
+  "truth_events": [
+    "start",
+    "alloc-start",
+    "alloc-done"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 1822,
+      "unique_seq": 1819,
+      "duplicates": 0,
+      "missing": 9,
+      "missing_ranges": [
+        "1820-1828"
+      ],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-e33a463f\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 1822,
+      "unique_seq": 1819,
+      "duplicates": 0,
+      "missing": 9,
+      "missing_ranges": [
+        "1820-1828"
+      ],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-e33a463f\"}"
+      ]
+    },
+    "promtail-sd": {
+      "lines": 1829,
+      "unique_seq": 1826,
+      "duplicates": 0,
+      "missing": 2,
+      "missing_ranges": [
+        "1827-1828"
+      ],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-e33a463f\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 1828,
+      "unique_seq": 1825,
+      "duplicates": 0,
+      "missing": 3,
+      "missing_ranges": [
+        "1826-1828"
+      ],
+      "events": [
+        "start",
+        "alloc-start",
+        "alloc-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-memory-pressure-e33a463f\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/node-memory-pressure-e33a463f to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app"
+  ],
+  "scenario": "node-memory-pressure",
+  "run": "e33a463f",
+  "pod": "node-memory-pressure-e33a463f",
+  "uid": "32ad3e4f-fdc6-4de8-95cd-cef19abfbc0c",
+  "observations": [
+    {
+      "t": "threshold-set",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 38 seq lines (last seq=38)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1235)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+3s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1259)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+5s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1283)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+8s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1308)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+10s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1332)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+13s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1357)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+15s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1381)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+17s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1406)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+20s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1430)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+22s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1455)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+25s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1479)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+27s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1503)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+30s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1528)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+32s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1552)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+35s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1576)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+37s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1601)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+40s",
+      "pod": {
+        "exists": true,
+        "phase": "Running",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": null,
+        "term_reason": null,
+        "term_message_tail": [],
+        "container_id": "containerd://a8d041bceffca678ec5b09cbe4b891249b33ba82bc084a7fc0ccdf03cdeb1064"
+      },
+      "kubectl_logs": "ok, 1000 seq lines (last seq=1625)",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:26:01.246684+00:00"
+}

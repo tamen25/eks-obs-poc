@@ -1,0 +1,8 @@
+discovery delay (pod created -> first line in Loki):
+  refresh_interval  1s  fluent-bit              2.9s
+  refresh_interval 10s  fb-proof                2.7s
+  refresh_interval 60s  fluent-bit-defaults    24.5s
+read latency on an already-tailed file (12 lines, trigger -> line in Loki):
+  refresh_interval  1s  fluent-bit           min 0.19s  median 0.75s  max 1.26s  (12/12 seen)
+  refresh_interval 10s  fb-proof             min 0.29s  median 0.58s  max 1.36s  (12/12 seen)
+  refresh_interval 60s  fluent-bit-defaults  min 0.34s  median 0.60s  max 1.05s  (12/12 seen)

@@ -1,0 +1,135 @@
+{
+  "truth_seq": 100005,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 100010,
+      "unique_seq": 100005,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "exit",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100005,
+      "missing_ranges": [
+        "1-100005"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100005,
+      "missing_ranges": [
+        "1-100005"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-static": {
+      "lines": 100010,
+      "unique_seq": 100005,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-6016697f\"}"
+      ]
+    },
+    "alloy": {
+      "lines": 100010,
+      "unique_seq": 100005,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "exit",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-api-6016697f\"}"
+      ]
+    },
+    "otel-filelog": {
+      "lines": 100010,
+      "unique_seq": 100005,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "SIGTERM",
+        "exit",
+        "burst-done"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"log-burst-api-6016697f\"}"
+      ]
+    },
+    "vector": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 100005,
+      "missing_ranges": [
+        "1-100005"
+      ],
+      "events": [],
+      "label_sets": []
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-api-6016697f to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-api",
+  "run": "6016697f",
+  "pod": "log-burst-api-6016697f",
+  "uid": "9671aa0f-d7f9-4cae-8043-508c7f07271e",
+  "observations": [
+    {
+      "t": "pod-deleted",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"log-burst-api-6016697f\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T10:58:18.036608+00:00"
+}

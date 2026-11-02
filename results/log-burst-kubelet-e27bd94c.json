@@ -1,0 +1,133 @@
+{
+  "truth_seq": 300043,
+  "truth_events": [
+    "start",
+    "burst-start",
+    "burst-done",
+    "SIGTERM"
+  ],
+  "shippers": {
+    "fluent-bit": {
+      "lines": 300047,
+      "unique_seq": 300043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-e27bd94c\"}"
+      ]
+    },
+    "fluent-bit-defaults": {
+      "lines": 0,
+      "unique_seq": 0,
+      "duplicates": 0,
+      "missing": 300043,
+      "missing_ranges": [
+        "1-300043"
+      ],
+      "events": [],
+      "label_sets": []
+    },
+    "promtail-sd": {
+      "lines": 300047,
+      "unique_seq": 300043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-e27bd94c\"}"
+      ]
+    },
+    "promtail-static": {
+      "lines": 300047,
+      "unique_seq": 300043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "burst-start",
+        "burst-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"log-burst-kubelet-e27bd94c\"}"
+      ]
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/log-burst-kubelet-e27bd94c to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "log-burst-kubelet",
+  "run": "e27bd94c",
+  "pod": "log-burst-kubelet-e27bd94c",
+  "uid": "54b2661d-e37e-4dbd-b8d3-b4c1cdfd9509",
+  "observations": [
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [],
+        "container_id": "containerd://2c9c5ca1c7990ffff6b371d7b58a1e6343f81987d2d2ff221a2f959920f44892"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://2c9c5ca1c7990ffff6b371d7b58a1e6343f81987d2d2ff221a2f959920f44892",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+3s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [],
+        "container_id": "containerd://2c9c5ca1c7990ffff6b371d7b58a1e6343f81987d2d2ff221a2f959920f44892"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://2c9c5ca1c7990ffff6b371d7b58a1e6343f81987d2d2ff221a2f959920f44892",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+31s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [],
+        "container_id": "containerd://2c9c5ca1c7990ffff6b371d7b58a1e6343f81987d2d2ff221a2f959920f44892"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://2c9c5ca1c7990ffff6b371d7b58a1e6343f81987d2d2ff221a2f959920f44892",
+      "node_files": "pod dir GONE, 0 log file(s)"
+    }
+  ],
+  "at": "2026-10-23T09:02:25.757617+00:00"
+}

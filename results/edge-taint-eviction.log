@@ -1,0 +1,40 @@
+== scenario taint-eviction  run=a4878a27  pod=taint-eviction-a4878a27
+   A NoExecute taint on the node: the taint manager deletes pods that do not tolerate it.
+  [taint-evicted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "taint-eviction-a4878a27" not found in namespace "evict-test" files=pod dir present, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 92 seq lines, events=['start', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit           95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "taint-eviction-a4878a27"}
+  fluent-bit-defaults      0      0    0       92  ['1-92'] []
+  fb-proof             89     88    0        4  ['89-92'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "taint-eviction-a4878a27"}
+  promtail-sd          95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "taint-eviction-a4878a27"}
+  promtail-static      95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "taint-eviction-a4878a27"}
+  alloy                95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "taint-eviction-a4878a27"}
+  otel-filelog         95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "taint-eviction-a4878a27"}
+  vector               95     92    0        0  [] ['start', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "taint-eviction-a4878a27"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/taint-eviction-a4878a27 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - TaintManagerEviction: Marking for deletion Pod evict-test/taint-eviction-a4878a27
+    - Killing: Stopping container app
+
+#### taint-eviction: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 92                         0
+  fluent-bit-defaults         0/1               92 of 92                         1
+  fb-proof                    0/1                4 of 92                         1
+  promtail-sd                 1/1                0 of 92                         0
+  promtail-static             1/1                0 of 92                         0
+  alloy                       1/1                0 of 92                         0
+  otel-filelog                1/1                0 of 92                         0
+  vector                      1/1                0 of 92                         0

@@ -1,0 +1,2 @@
+# LF everywhere: a shell script checked out with CRLF does not run.
+* text=auto eol=lf

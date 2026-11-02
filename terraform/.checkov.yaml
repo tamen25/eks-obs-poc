@@ -1,0 +1,18 @@
+# Checks skipped across the whole stack, each for a stated reason. Exceptions that apply to a
+# single workload are recorded on that workload instead (inline #checkov:skip comments in the
+# Terraform, or checkov.io/skip annotations in the rendered manifests).
+skip-check:
+  # CPU limits: deliberately unset. CFS throttling stalls Loki queries and delays log shipping
+  # long before a node runs out of CPU; CPU requests reserve the capacity instead.
+  - CKV_K8S_11
+  # imagePullPolicy Always: every image is pinned to a version tag (or a digest where the
+  # variable allows it), so IfNotPresent pulls the same image without a registry round trip
+  # on every pod start.
+  - CKV_K8S_15
+  # Image digests: the charts pin version tags; digest pinning is available through the image
+  # variables for environments that require it (see SECURITY.md).
+  - CKV_K8S_43
+  # "Pods without a NetworkPolicy" in the rendered chart manifests: the NetworkPolicies are
+  # Terraform resources (modules/loki/network_policies.tf, modules/network-policies), which a
+  # scan of chart output cannot see. They require network_policies.enabled = true.
+  - CKV2_K8S_6

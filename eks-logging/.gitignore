@@ -1,0 +1,26 @@
+# Local Terraform state and caches. State holds secrets; it belongs in the remote backend.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+crash.*.log
+
+# Real settings and backend config; the .example files are the tracked templates.
+terraform.tfvars
+*.auto.tfvars
+backend.tf
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Offline render output from scripts/validate.sh.
+tests/render/out/
+tests/render/manifests/
+
+# End-to-end work copy and state (tests/e2e/run.sh).
+tests/e2e/.work/
+tests/e2e/terraform.tfstate*
+tests/e2e/.certs/

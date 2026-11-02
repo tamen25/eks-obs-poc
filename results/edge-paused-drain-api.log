@@ -1,0 +1,48 @@
+== scenario paused-drain-api  run=160e0cf0  pod=paused-drain-api-160e0cf0
+   Loki frozen; a known pod writes 20k lines and is API-evicted. Can shippers finish a deleted file?
+  fb-proof tailing the file before Loki is frozen: True
+  [pod-deleted (Loki frozen)] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "paused-drain-api-160e0cf0" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  fb-proof still holds 0 deleted file(s) open: []
+  Loki thawed; waiting 45s for retries to drain
+    fb-proof: [2026/10/23 11:29:37.712] [ info] [input:tail:tail.0] inotify_fs_add(): inode=1292234 watch_fd=20 name=/var/log/containers/paused-drain-api-160e0cf0_evict-test_app-68088b16546620f1908f9c629d902adc745f
+    fb-proof: [2026/10/23 11:30:15.201] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 225440B exceeded limit 512000 to 636385B)
+    fb-proof: [2026/10/23 11:30:21.705] [ info] [input:tail:tail.0] inode=1292217 link_rotated: /var/log/containers/paused-drain-api-160e0cf0_evict-test_app-68088b16546620f1908f9c629d902adc745fc24ee020395edade1ed11
+    fb-proof: [2026/10/23 11:30:21.705] [ info] [input:tail:tail.0] inode=1292234 handle rotation(): /var/log/containers/paused-drain-api-160e0cf0_evict-test_app-68088b16546620f1908f9c629d902adc745fc24ee020395edade
+    fb-proof: [2026/10/23 11:30:28.999] [ info] [input] resume tail.0
+    fb-proof: [2026/10/23 11:30:28.999] [ info] [input] tail.0 resume (mem buf overlimit - buf size 6419B now below limit 512000B)
+  waiting 15s for shippers to flush...
+
+  ground truth: 20043 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        20047  20043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "paused-drain-api-160e0cf0"}
+  fluent-bit-defaults      0      0    0    20043  ['1-20043'] []
+  fb-proof           1185   1184    0    18859  ['1185-20043'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "paused-drain-api-160e0cf0"}
+  promtail-sd          19     18    0    20025  ['19-20043'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "paused-drain-api-160e0cf0"}
+  promtail-static      19     18    0    20025  ['19-20043'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "paused-drain-api-160e0cf0"}
+  alloy             20047  20043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "paused-drain-api-160e0cf0"}
+  otel-filelog      20047  20043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "paused-drain-api-160e0cf0"}
+  vector            20047  20043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "paused-drain-api-160e0cf0"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/paused-drain-api-160e0cf0 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+
+#### paused-drain-api: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 20043                      0
+  fluent-bit-defaults         0/1            20043 of 20043                      1
+  fb-proof                    0/1            18859 of 20043                      1
+  promtail-sd                 0/1            20025 of 20043                      1
+  promtail-static             0/1            20025 of 20043                      1
+  alloy                       1/1                0 of 20043                      0
+  otel-filelog                1/1                0 of 20043                      0
+  vector                      1/1                0 of 20043                      0

@@ -1,0 +1,13 @@
+# Copy to backend.tf. State holds the tenant password, the Grafana admin password and the
+# internal TLS private keys, so the bucket must be encrypted with KMS, versioned, and readable
+# only by the people and pipelines that run this stack.
+terraform {
+  backend "s3" {
+    bucket       = "your-terraform-state-bucket"
+    key          = "eks-logging/cloudops-dev-cluster/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    kms_key_id   = "arn:aws:kms:us-east-1:123456789012:key/your-state-key"
+    use_lockfile = true # S3-native locking (Terraform >= 1.10); no DynamoDB table needed
+  }
+}

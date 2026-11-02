@@ -1,0 +1,99 @@
+{
+  "uid": "evicted-pods",
+  "title": "Evicted pod logs",
+  "description": "Why pods went away (events and pod terminal states) next to the last lines they logged.",
+  "tags": ["kubernetes", "loki", "eviction"],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "editable": false,
+  "time": {"from": "now-6h", "to": "now"},
+  "refresh": "1m",
+  "templating": {
+    "list": [
+      {
+        "name": "cluster",
+        "label": "Cluster",
+        "type": "query",
+        "datasource": {"type": "loki", "uid": "loki"},
+        "query": {"type": 1, "label": "cluster", "stream": "", "refId": "cluster"},
+        "refresh": 2
+      },
+      {
+        "name": "namespace",
+        "label": "Namespace",
+        "type": "query",
+        "datasource": {"type": "loki", "uid": "loki"},
+        "query": {"type": 1, "label": "namespace", "stream": "{cluster=\"$cluster\"}", "refId": "namespace"},
+        "refresh": 2
+      },
+      {
+        "name": "pod",
+        "label": "Pod (regex)",
+        "type": "textbox",
+        "query": ".+",
+        "current": {"text": ".+", "value": ".+"}
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Kubelet evictions per namespace",
+      "description": "Evicted events come from the kubelet (node pressure, ephemeral-storage limits). Eviction-API evictions (drain, cluster-autoscaler, Karpenter) emit no Evicted event; the pod terminal state panel shows those as disruption=EvictionByEvictionAPI.",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "sum by (namespace) (count_over_time({cluster=\"$cluster\", job=\"kubernetes-events\", reason=\"Evicted\"}[$__auto]))", "legendFormat": "{{namespace}}"}
+      ],
+      "fieldConfig": {"defaults": {"custom": {"drawStyle": "bars", "fillOpacity": 60}, "unit": "short"}, "overrides": []}
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "Eviction and termination events",
+      "description": "Evicted = kubelet eviction. Killing without Evicted = API deletion or eviction. Preempted / TaintManagerEviction = scheduler and taint evictions.",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{cluster=\"$cluster\", job=\"kubernetes-events\", reason=~\"Evicted|Killing|Preempted|Preempting|TaintManagerEviction|EvictionThresholdMet|FreeDiskSpaceFailed\"} | json | line_format \"{{.reason}}  {{.kind}}/{{.involvedObject_name}}  {{.message}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "Last lines of $pod in $namespace",
+      "description": "Newest first. pod and pod_uid are structured metadata on every line; filter on pod_uid to tell apart StatefulSet pods that reused a name.",
+      "gridPos": {"x": 0, "y": 8, "w": 16, "h": 14},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{cluster=\"$cluster\", namespace=\"$namespace\"} | pod=~\"$pod\"", "maxLines": 500}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    },
+    {
+      "id": 4,
+      "type": "logs",
+      "title": "Kubernetes events for $pod",
+      "gridPos": {"x": 16, "y": 8, "w": 8, "h": 14},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{cluster=\"$cluster\", job=\"kubernetes-events\", namespace=\"$namespace\"} | object=~\"$pod\" | json | line_format \"{{.reason}}: {{.message}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true}
+    },
+    {
+      "id": 5,
+      "type": "logs",
+      "title": "Pod terminal state (pod-lifecycle)",
+      "description": "From the pod-lifecycle watcher, independent of log files. disruption = EvictionByEvictionAPI | TerminationByKubelet | PreemptionByScheduler | DeletionByTaintManager. 'last lines' is the container termination message (FallbackToLogsOnError), which survives when the log file does not.",
+      "gridPos": {"x": 0, "y": 22, "w": 24, "h": 10},
+      "datasource": {"type": "loki", "uid": "loki"},
+      "targets": [
+        {"refId": "A", "expr": "{cluster=\"$cluster\", namespace=\"__AGENTS_NAMESPACE__\", container=\"watch\"} | json pod_name=\"pod\", ns=\"namespace\", lifecycle=\"lifecycle\", phase=\"phase\", reason=\"reason\", msg=\"message\", disruption=\"disruption.reason\", last=\"containers[0].lastLines\" | ns=\"$namespace\" | pod_name=~\"$pod\" | phase=\"Failed\" or lifecycle=\"DELETED\" | line_format \"{{.lifecycle}} {{.pod_name}} phase={{.phase}} reason={{.reason}} disruption={{.disruption}} {{.msg}} | last lines: {{.last}}\""}
+      ],
+      "options": {"showTime": true, "sortOrder": "Descending", "wrapLogMessage": true, "enableLogDetails": true}
+    }
+  ]
+}

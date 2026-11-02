@@ -1,0 +1,49 @@
+== scenario rotation-paused-drain  run=d4090d17  pod=rotation-paused-drain-d4090d17
+   As paused-drain-api but 80k lines (~5 MB) with kubelet rotation at 1Mi keeping 2 files.
+  fb-proof tailing the file before Loki is frozen: True
+  [pod-deleted (Loki frozen)] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "rotation-paused-drain-d4090d17" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  fb-proof still holds 0 deleted file(s) open: []
+  Loki thawed; waiting 45s for retries to drain
+    fb-proof: [2026/10/23 11:35:43.708] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223813B exceeded limit 512000 to 671429B)
+    fb-proof: [2026/10/23 11:35:44.704] [ info] [input] resume tail.0
+    fb-proof: [2026/10/23 11:35:44.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)
+    fb-proof: [2026/10/23 11:35:44.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223815B exceeded limit 512000 to 671450B)
+    fb-proof: [2026/10/23 11:35:45.705] [ info] [input] resume tail.0
+    fb-proof: [2026/10/23 11:35:45.705] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)
+  waiting 15s for shippers to flush...
+
+  ground truth: 80043 seq lines, events=['start', 'late-burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit        80047  80043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  fluent-bit-defaults  80047  80043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  fb-proof          23541  23540    0    56503  ['23541-80043'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  promtail-sd          17     16    0    80027  ['17-80043'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  promtail-static      19     18    0    80025  ['19-80043'] ['start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  alloy             80047  80043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  otel-filelog      80047  80043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"k8s_container_name": "app", "k8s_namespace_name": "evict-test", "k8s_pod_name": "rotation-paused-drain-d4090d17"}
+  vector            80047  80043    0        0  [] ['start', 'late-burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "rotation-paused-drain-d4090d17"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/rotation-paused-drain-d4090d17 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+
+#### rotation-paused-drain: 1 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  1/1                0 of 80043                      0
+  fluent-bit-defaults         1/1                0 of 80043                      0
+  fb-proof                    0/1            56503 of 80043                      1
+  promtail-sd                 0/1            80027 of 80043                      1
+  promtail-static             0/1            80025 of 80043                      1
+  alloy                       1/1                0 of 80043                      0
+  otel-filelog                1/1                0 of 80043                      0
+  vector                      1/1                0 of 80043                      0

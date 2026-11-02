@@ -1,0 +1,139 @@
+== scenario log-burst-api  run=fdbb6ab9  pod=log-burst-api-fdbb6ab9
+   Pod logs ~15 MB in a burst and is API-evicted with no grace the moment the burst ends.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "log-burst-api-fdbb6ab9" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100012 seq lines, events=['start', 'burst-start', 'burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit       100017 100012    0        0  [] ['start', 'burst-start', 'SIGTERM', 'exit', 'burst-done']
+                   labels {}
+  fluent-bit-defaults      0      0    0   100012  ['1-100012'] []
+  promtail-sd           0      0    0   100012  ['1-100012'] []
+  promtail-static  100017 100012    0        0  [] ['start', 'burst-start', 'exit', 'burst-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-api-fdbb6ab9"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/log-burst-api-fdbb6ab9 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario log-burst-api  run=e556a695  pod=log-burst-api-e556a695
+   Pod logs ~15 MB in a burst and is API-evicted with no grace the moment the burst ends.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "log-burst-api-e556a695" not found in namespace "evict-test" files=pod dir present, 2 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100004 seq lines, events=['start', 'burst-start', 'burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit            3      1    0   100003  ['1-100003'] ['SIGTERM', 'exit']
+                   labels {}
+  fluent-bit-defaults      0      0    0   100004  ['1-100004'] []
+  promtail-sd           0      0    0   100004  ['1-100004'] []
+  promtail-static  100006 100003    0        1  ['100004'] ['start', 'burst-start', 'burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-api-e556a695"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/log-burst-api-e556a695 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario log-burst-api  run=bc2233b4  pod=log-burst-api-bc2233b4
+   Pod logs ~15 MB in a burst and is API-evicted with no grace the moment the burst ends.
+  [pod-deleted] pod={'exists': False} logs=FAILED: error: error from server (NotFound): pods "log-burst-api-bc2233b4" not found in namespace "evict-test" files=pod dir present, 1 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 100006 seq lines, events=['start', 'burst-start', 'burst-done', 'SIGTERM', 'exit']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit       100011 100006    0        0  [] ['start', 'burst-start', 'burst-done', 'SIGTERM', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-api-bc2233b4"}
+  fluent-bit-defaults      0      0    0   100006  ['1-100006'] []
+  promtail-sd           0      0    0   100006  ['1-100006'] []
+  promtail-static  100011 100006    0        0  [] ['start', 'burst-start', 'SIGTERM', 'burst-done', 'exit']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-api-bc2233b4"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/log-burst-api-bc2233b4 to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Killing: Stopping container app
+== scenario log-burst-kubelet  run=981ab56c  pod=log-burst-kubelet-981ab56c
+   Pod logs ~45 MB in a burst; its own log files push it over the ephemeral-storage limit.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=981ab56c event=SIGTERM last_seq=300033', 'run=981ab56c seq=300034 phase=shutdown', 'run=981ab56c seq=300035 phase=shutdown'], 'container_id': 'containerd://cb3b4ded5dbc9e046629d687183e9c8cb7424060f93620713fcc2ebf77869b11'} logs=ok, 4 seq lines (last seq=300035) files=pod dir present, 2 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=981ab56c event=SIGTERM last_seq=300033', 'run=981ab56c seq=300034 phase=shutdown', 'run=981ab56c seq=300035 phase=shutdown'], 'container_id': 'containerd://cb3b4ded5dbc9e046629d687183e9c8cb7424060f93620713fcc2ebf77869b11'} logs=FAILED: unable to retrieve container logs for containerd://cb3b4ded5dbc9e046629d687183e9c8cb7424060f93620713fcc2ebf77869b11 files=pod dir present, 0 log file(s)
+  [evicted+29s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=981ab56c event=SIGTERM last_seq=300033', 'run=981ab56c seq=300034 phase=shutdown', 'run=981ab56c seq=300035 phase=shutdown'], 'container_id': 'containerd://cb3b4ded5dbc9e046629d687183e9c8cb7424060f93620713fcc2ebf77869b11'} logs=FAILED: unable to retrieve container logs for containerd://cb3b4ded5dbc9e046629d687183e9c8cb7424060f93620713fcc2ebf77869b11 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 300035 seq lines, events=['start', 'burst-start', 'burst-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit       300039 300035    0        0  [] ['start', 'burst-start', 'burst-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-981ab56c"}
+  fluent-bit-defaults      0      0    0   300035  ['1-300035'] []
+  promtail-sd      300034 300031    0        4  ['300032-300035'] ['start', 'burst-start', 'burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-981ab56c"}
+  promtail-static  300034 300031    0        4  ['300032-300035'] ['start', 'burst-start', 'burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-981ab56c"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/log-burst-kubelet-981ab56c to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. 
+    - Killing: Stopping container app
+== scenario log-burst-kubelet  run=97de87ad  pod=log-burst-kubelet-97de87ad
+   Pod logs ~45 MB in a burst; its own log files push it over the ephemeral-storage limit.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=97de87ad event=SIGTERM last_seq=300020', 'run=97de87ad seq=300021 phase=shutdown', 'run=97de87ad seq=300022 phase=shutdown'], 'container_id': 'containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44'} logs=FAILED: unable to retrieve container logs for containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44 files=pod dir present, 0 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=97de87ad event=SIGTERM last_seq=300020', 'run=97de87ad seq=300021 phase=shutdown', 'run=97de87ad seq=300022 phase=shutdown'], 'container_id': 'containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44'} logs=FAILED: unable to retrieve container logs for containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44 files=pod dir present, 0 log file(s)
+  [evicted+16s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=97de87ad event=SIGTERM last_seq=300020', 'run=97de87ad seq=300021 phase=shutdown', 'run=97de87ad seq=300022 phase=shutdown'], 'container_id': 'containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44'} logs=FAILED: unable to retrieve container logs for containerd://cc3935789bfc6feda977d761b050de2a9369e766eb5607da598d44b0af679e44 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 300022 seq lines, events=['start', 'burst-start', 'burst-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit       300026 300022    0        0  [] ['start', 'burst-start', 'SIGTERM', 'burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-97de87ad"}
+  fluent-bit-defaults      0      0    0   300022  ['1-300022'] []
+  promtail-sd      300026 300022    0        0  [] ['start', 'burst-start', 'burst-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-97de87ad"}
+  promtail-static  300026 300022    0        0  [] ['start', 'burst-start', 'SIGTERM', 'burst-done']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-97de87ad"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/log-burst-kubelet-97de87ad to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. 
+    - Killing: Stopping container app
+== scenario log-burst-kubelet  run=061154ab  pod=log-burst-kubelet-061154ab
+   Pod logs ~45 MB in a burst; its own log files push it over the ephemeral-storage limit.
+  [evicted+0s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=061154ab event=SIGTERM last_seq=300018', 'run=061154ab seq=300019 phase=shutdown', 'run=061154ab seq=300020 phase=shutdown'], 'container_id': 'containerd://b2a703685bff98bd12e056ff4fef7faac23f585dd54a1bbdf59ef0fe0ac68087'} logs=FAILED: unable to retrieve container logs for containerd://b2a703685bff98bd12e056ff4fef7faac23f585dd54a1bbdf59ef0fe0ac68087 files=pod dir present, 0 log file(s)
+  [evicted+3s] pod={'exists': True, 'phase': 'Failed', 'reason': 'Evicted', 'message': 'Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. ', 'deleting': False, 'exit_code': 137, 'term_reason': 'Error', 'term_message_tail': ['run=061154ab event=SIGTERM last_seq=300018', 'run=061154ab seq=300019 phase=shutdown', 'run=061154ab seq=300020 phase=shutdown'], 'container_id': 'containerd://b2a703685bff98bd12e056ff4fef7faac23f585dd54a1bbdf59ef0fe0ac68087'} logs=FAILED: unable to retrieve container logs for containerd://b2a703685bff98bd12e056ff4fef7faac23f585dd54a1bbdf59ef0fe0ac68087 files=pod dir GONE, 0 log file(s)
+  waiting 15s for shippers to flush...
+
+  ground truth: 300020 seq lines, events=['start', 'burst-start', 'burst-done', 'SIGTERM']
+  shipper           lines   uniq  dup  missing  missing ranges / events / labels
+  fluent-bit       300024 300020    0        0  [] ['start', 'burst-start', 'burst-done', 'SIGTERM']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-061154ab"}
+  fluent-bit-defaults      0      0    0   300020  ['1-300020'] []
+  promtail-sd      170924 170922    0   129098  ['170923-300020'] ['start', 'burst-start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-061154ab"}
+  promtail-static  171070 171068    0   128952  ['171069-300020'] ['start', 'burst-start']
+                   labels {"container": "app", "namespace": "evict-test", "pod": "log-burst-kubelet-061154ab"}
+  k8s events from Loki:
+    - Scheduled: Successfully assigned evict-test/log-burst-kubelet-061154ab to evict-lab-worker
+    - Pulled: Container image "busybox:1.37.0" already present on machine
+    - Created: Created container: app
+    - Started: Started container app
+    - Evicted: Pod ephemeral local storage usage exceeds the total limit of containers 40Mi. 
+    - Killing: Stopping container app
+
+#### log-burst-api: 3 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  2/3           100003 of 300022                     0
+  fluent-bit-defaults         0/3           300022 of 300022                     3
+  promtail-sd                 0/3           300022 of 300022                     3
+  promtail-static             2/3                1 of 300022                     1
+
+#### log-burst-kubelet: 3 run(s)
+  shipper               complete runs   lines missing (all runs)   runs missing exit/SIGTERM
+  fluent-bit                  3/3                0 of 900077                     0
+  fluent-bit-defaults         0/3           900077 of 900077                     3
+  promtail-sd                 1/3           129102 of 900077                     2
+  promtail-static             1/3           128956 of 900077                     2

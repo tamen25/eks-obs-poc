@@ -1,0 +1,258 @@
+{
+  "truth_seq": 172,
+  "truth_events": [
+    "start",
+    "fill-start",
+    "fill-done",
+    "SIGTERM"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 176,
+      "unique_seq": 172,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "fill-start",
+        "fill-done",
+        "SIGTERM"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"node-disk-pressure-52b3066f\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/node-disk-pressure-52b3066f to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Evicted: The node was low on resource: ephemeral-storage. Threshold quantity: 889373Mi, available: 909171208Ki. ",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "node-disk-pressure",
+  "run": "52b3066f",
+  "pod": "node-disk-pressure-52b3066f",
+  "uid": "65d8015c-232a-4560-8a32-2bf632df302e",
+  "observations": [
+    {
+      "t": "bystander before pressure",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": 3,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=52b3066fb seq=49 phase=running",
+          "run=52b3066fb seq=50 phase=running",
+          "run=52b3066fb event=crash"
+        ],
+        "container_id": "containerd://74fcbd9d54f5fbe545c41427ddffd6805ba76d26ce323cfa555588eec31080e2"
+      },
+      "kubectl_logs": "ok, 50 seq lines (last seq=50)",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "evicted+0s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "The node was low on resource: ephemeral-storage. Threshold quantity: 889373Mi, available: 909171208Ki. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=52b3066f event=SIGTERM last_seq=170",
+          "run=52b3066f seq=171 phase=shutdown",
+          "run=52b3066f seq=172 phase=shutdown"
+        ],
+        "container_id": "containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "evicted+3s",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": "Evicted",
+        "message": "The node was low on resource: ephemeral-storage. Threshold quantity: 889373Mi, available: 909171208Ki. ",
+        "deleting": false,
+        "exit_code": 137,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=52b3066f event=SIGTERM last_seq=170",
+          "run=52b3066f seq=171 phase=shutdown",
+          "run=52b3066f seq=172 phase=shutdown"
+        ],
+        "container_id": "containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://16cc4a04e1b1b6ca0a12f154eea0def4a6e5fdb5cac8f9348f5ad69c77303bfc",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "bystander after pressure",
+      "pod": {
+        "exists": true,
+        "phase": "Failed",
+        "reason": null,
+        "message": null,
+        "deleting": false,
+        "exit_code": 3,
+        "term_reason": "Error",
+        "term_message_tail": [
+          "run=52b3066fb seq=49 phase=running",
+          "run=52b3066fb seq=50 phase=running",
+          "run=52b3066fb event=crash"
+        ],
+        "container_id": "containerd://74fcbd9d54f5fbe545c41427ddffd6805ba76d26ce323cfa555588eec31080e2"
+      },
+      "kubectl_logs": "FAILED: unable to retrieve container logs for containerd://74fcbd9d54f5fbe545c41427ddffd6805ba76d26ce323cfa555588eec31080e2",
+      "node_files": "pod dir present, 0 log file(s)"
+    },
+    {
+      "t": "node events",
+      "lines": [
+        "NodeHasSufficientMemory: Node evict-lab-worker status is now: NodeHasSufficientMemory",
+        "NodeHasNoDiskPressure: Node evict-lab-worker status is now: NodeHasNoDiskPressure",
+        "NodeHasSufficientPID: Node evict-lab-worker status is now: NodeHasSufficientPID",
+        "Starting: Starting kubelet.",
+        "NodeAllocatableEnforced: Updated Node Allocatable limit across pods",
+        "NodeHasSufficientMemory: Node evict-lab-worker status is now: NodeHasSufficientMemory",
+        "NodeHasNoDiskPressure: Node evict-lab-worker status is now: NodeHasNoDiskPressure",
+        "NodeHasSufficientPID: Node evict-lab-worker status is now: NodeHasSufficientPID",
+        "EvictionThresholdMet: Attempting to reclaim ephemeral-storage",
+        "NodeHasDiskPressure: Node evict-lab-worker status is now: NodeHasDiskPressure"
+      ]
+    }
+  ],
+  "at": "2026-10-23T11:37:59.893457+00:00"
+}

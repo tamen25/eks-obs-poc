@@ -1,0 +1,206 @@
+# log-keeper: hard-links every container log file into /var/log/keep the moment it
+# appears (inotify), so the data outlives the kubelet deleting the original after an
+# eviction, a force delete or a rotation. A hard link is a second name for the same
+# file, not a copy: appends to the original show up in the link, and the data stays
+# until the last name is removed.
+#
+# Links whose original is gone (link count 1) are removed TTL_MINUTES after the
+# deletion (the inode's ctime changes when the kubelet unlinks the original). That
+# window is how long a shipper has to finish the file, across restarts too.
+#
+# fluent-bit-keep ships only from /var/log/keep. Its refresh_interval is left at
+# 10s on purpose: discovery speed no longer decides whether a short-lived pod is kept.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-keeper
+  namespace: logging
+data:
+  keeper.sh: |
+    #!/bin/sh
+    # Hard links only work within one filesystem and one mount, so /var/log is
+    # mounted as a single volume and keep/ lives inside it.
+    SRC=/var/log/pods
+    KEEP=/var/log/keep
+    TTL_MINUTES=${TTL_MINUTES:-10}
+    KEEP_MAX_MB=${KEEP_MAX_MB:-1024}
+    mkdir -p "$KEEP"
+
+    # $1: a live container log, /var/log/pods/<ns>_<pod>_<uid>/<container>/<restart>.log.
+    # Rotated names (0.log.<timestamp>) are the same inode as an earlier 0.log, already linked.
+    link_one() {
+      case "$1" in "$SRC"/*/*/*.log) ;; *) return 0 ;; esac
+      ino=$(stat -c %i "$1" 2>/dev/null) || return 0
+      rel=${1#"$SRC"/}
+      dir="$KEEP/${rel%/*}"
+      [ -e "$dir/$ino.log" ] && return 0
+      mkdir -p "$dir" && ln "$1" "$dir/$ino.log" 2>/dev/null && echo "kept $rel as $ino.log"
+    }
+
+    scan() {
+      for f in "$SRC"/*/*/*.log; do [ -f "$f" ] && link_one "$f"; done
+    }
+
+    # Orphans (original already deleted) are the only kept files that cost disk space:
+    # live ones share their blocks with /var/log/pods. Over the cap, drop the oldest
+    # orphans first, so the keeper never holds more than KEEP_MAX_MB that the kubelet
+    # thinks it freed.
+    orphan_mb() {
+      find "$KEEP" -type f -links 1 -printf '%s\n' | awk '{s += $1} END {print int(s / 1048576)}'
+    }
+    cap_orphans() {
+      while [ "$(orphan_mb)" -gt "$KEEP_MAX_MB" ]; do
+        oldest=$(find "$KEEP" -type f -links 1 -printf '%C@ %p\n' | sort -n | head -1 | cut -d' ' -f2-)
+        [ -n "$oldest" ] || break
+        rm -f "$oldest" && echo "over ${KEEP_MAX_MB}MB, dropped $oldest"
+      done
+    }
+
+    scan
+    # Event-driven path: link within milliseconds of the runtime creating the file.
+    # -r adds watches for new pod directories; a file created before its directory's
+    # watch exists is caught by scanning that directory on its create event.
+    inotifywait -m -r -q -e create -e moved_to --format '%w%f' "$SRC" | while read -r path; do
+      if [ -d "$path" ]; then
+        for f in "$path"/*.log "$path"/*/*.log; do [ -f "$f" ] && link_one "$f"; done
+      else
+        link_one "$path"
+      fi
+    done &
+
+    # Safety net for anything the watcher missed, and garbage collection.
+    n=0
+    while true; do
+      sleep 1
+      scan
+      n=$((n + 1))
+      if [ $((n % 30)) -eq 0 ]; then
+        find "$KEEP" -type f -links 1 -cmin +"$TTL_MINUTES" -print -delete | sed 's/^/expired /'
+        cap_orphans
+        find "$KEEP" -mindepth 1 -type d -empty -delete
+      fi
+    done
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-keeper
+  namespace: logging
+  labels: {app: log-keeper}
+spec:
+  selector:
+    matchLabels: {app: log-keeper}
+  template:
+    metadata:
+      labels: {app: log-keeper}
+    spec:
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: keeper
+          image: alpine:3.23.7
+          # inotify-tools and GNU find are installed at start to keep the lab to stock
+          # images; bake them into an image for real use.
+          command: ["/bin/sh", "-c", "apk add --no-cache inotify-tools findutils >/dev/null && exec sh /scripts/keeper.sh"]
+          env:
+            - {name: TTL_MINUTES, value: "10"}
+            - {name: KEEP_MAX_MB, value: "1024"}
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {memory: 64Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log}
+            - {name: scripts, mountPath: /scripts}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: scripts
+          configMap: {name: log-keeper}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-keep
+  namespace: logging
+data:
+  fluent-bit.yaml: |
+    service:
+      flush: 1
+      log_level: info
+      storage.path: /var/lib/fluent-bit-keep/storage
+      storage.sync: normal
+
+    parsers:
+      - name: keep_path
+        format: regex
+        regex: '^/var/log/keep/(?<namespace>[^_]+)_(?<pod>[^_]+)_(?<uid>[^/]+)/(?<container>[^/]+)/'
+
+    pipeline:
+      inputs:
+        - name: tail
+          tag: keep
+          path: /var/log/keep/*/*/*.log
+          path_key: filepath
+          multiline.parser: cri
+          db: /var/lib/fluent-bit-keep/tail.db
+          db.locking: true
+          refresh_interval: 10
+          read_from_head: true
+          rotate_wait: 300
+          skip_long_lines: on
+          storage.type: filesystem
+
+      filters:
+        # Labels from the path: no API lookup, so pods already deleted still get them.
+        - name: parser
+          match: keep
+          key_name: filepath
+          parser: keep_path
+          reserve_data: true
+
+      outputs:
+        - name: loki
+          match: keep
+          host: evict-lgtm
+          port: 3100
+          labels: shipper=fb-keep, namespace=$namespace, pod=$pod, container=$container
+          remove_keys: filepath, uid, stream, _p, time
+          drop_single_key: raw
+          line_format: key_value
+          retry_limit: false
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluent-bit-keep
+  namespace: logging
+  labels: {app: fluent-bit-keep}
+spec:
+  selector:
+    matchLabels: {app: fluent-bit-keep}
+  template:
+    metadata:
+      labels: {app: fluent-bit-keep}
+    spec:
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: fluent-bit
+          image: fluent/fluent-bit:5.1.5
+          args: ["-c", "/fluent-bit/etc/conf/fluent-bit.yaml"]
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {memory: 256Mi}
+          volumeMounts:
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: state, mountPath: /var/lib/fluent-bit-keep}
+            - {name: config, mountPath: /fluent-bit/etc/conf}
+      volumes:
+        - name: varlog
+          hostPath: {path: /var/log}
+        - name: state
+          hostPath: {path: /var/lib/fluent-bit-keep, type: DirectoryOrCreate}
+        - name: config
+          configMap: {name: fluent-bit-keep}

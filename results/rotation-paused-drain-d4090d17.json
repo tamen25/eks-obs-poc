@@ -1,0 +1,236 @@
+{
+  "truth_seq": 80043,
+  "truth_events": [
+    "start",
+    "late-burst-done",
+    "SIGTERM",
+    "exit"
+  ],
+  "truth_long_lines": {},
+  "shippers": {
+    "fluent-bit": {
+      "lines": 80047,
+      "unique_seq": 80043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "fluent-bit-defaults": {
+      "lines": 80047,
+      "unique_seq": 80043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "fb-proof": {
+      "lines": 23541,
+      "unique_seq": 23540,
+      "duplicates": 0,
+      "missing": 56503,
+      "missing_ranges": [
+        "23541-80043"
+      ],
+      "events": [
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-sd": {
+      "lines": 17,
+      "unique_seq": 16,
+      "duplicates": 0,
+      "missing": 80027,
+      "missing_ranges": [
+        "17-80043"
+      ],
+      "events": [
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "promtail-static": {
+      "lines": 19,
+      "unique_seq": 18,
+      "duplicates": 0,
+      "missing": 80025,
+      "missing_ranges": [
+        "19-80043"
+      ],
+      "events": [
+        "start"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "alloy": {
+      "lines": 80047,
+      "unique_seq": 80043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "otel-filelog": {
+      "lines": 80047,
+      "unique_seq": 80043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"k8s_container_name\": \"app\", \"k8s_namespace_name\": \"evict-test\", \"k8s_pod_name\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    },
+    "vector": {
+      "lines": 80047,
+      "unique_seq": 80043,
+      "duplicates": 0,
+      "missing": 0,
+      "missing_ranges": [],
+      "events": [
+        "start",
+        "late-burst-done",
+        "SIGTERM",
+        "exit"
+      ],
+      "label_sets": [
+        "{\"container\": \"app\", \"namespace\": \"evict-test\", \"pod\": \"rotation-paused-drain-d4090d17\"}"
+      ],
+      "long_lines": {}
+    }
+  },
+  "k8s_events": [
+    "Scheduled: Successfully assigned evict-test/rotation-paused-drain-d4090d17 to evict-lab-worker",
+    "Pulled: Container image \"busybox:1.37.0\" already present on machine",
+    "Created: Created container: app",
+    "Started: Started container app",
+    "Killing: Stopping container app"
+  ],
+  "scenario": "rotation-paused-drain",
+  "run": "d4090d17",
+  "pod": "rotation-paused-drain-d4090d17",
+  "uid": "b2d6b7e8-2658-416f-8efd-fee070a67b6a",
+  "observations": [
+    {
+      "t": "pod-deleted (Loki frozen)",
+      "pod": {
+        "exists": false
+      },
+      "kubectl_logs": "FAILED: error: error from server (NotFound): pods \"rotation-paused-drain-d4090d17\" not found in namespace \"evict-test\"",
+      "node_files": "pod dir present, 1 log file(s)"
+    },
+    {
+      "t": "fb-proof open deleted files",
+      "files": []
+    },
+    {
+      "t": "fb-proof log",
+      "lines": [
+        "[2026/10/23 11:34:35.704] [ info] [input:tail:tail.0] inotify_fs_add(): inode=1292451 watch_fd=1 name=/var/log/containers/rotation-paused-drain-d4090d17_evict-test_app-b8258ebeac7ee84ab32898a2350a7cbe",
+        "[2026/10/23 11:35:14.087] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226546B exceeded limit 512000 to 702767B)",
+        "[2026/10/23 11:35:19.693] [ info] [input:tail:tail.0] inode=1292445 link_rotated: /var/log/containers/rotation-paused-drain-d4090d17_evict-test_app-b8258ebeac7ee84ab32898a2350a7cbee5febbb5039cb93ff4b0",
+        "[2026/10/23 11:35:19.693] [ info] [input:tail:tail.0] inode=1292451 handle rotation(): /var/log/containers/rotation-paused-drain-d4090d17_evict-test_app-b8258ebeac7ee84ab32898a2350a7cbee5febbb5039cb93",
+        "[2026/10/23 11:35:28.352] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:28.352] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:28.356] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226136B exceeded limit 512000 to 678397B)",
+        "[2026/10/23 11:35:28.706] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:28.706] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:28.710] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226124B exceeded limit 512000 to 678380B)",
+        "[2026/10/23 11:35:29.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:29.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:29.708] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226127B exceeded limit 512000 to 678376B)",
+        "[2026/10/23 11:35:30.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:30.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:30.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226130B exceeded limit 512000 to 678392B)",
+        "[2026/10/23 11:35:31.705] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:31.705] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:31.709] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226123B exceeded limit 512000 to 678394B)",
+        "[2026/10/23 11:35:32.706] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:32.706] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:32.709] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226128B exceeded limit 512000 to 678398B)",
+        "[2026/10/23 11:35:33.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:33.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:33.708] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 226145B exceeded limit 512000 to 678401B)",
+        "[2026/10/23 11:35:34.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:34.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:34.708] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223820B exceeded limit 512000 to 671448B)",
+        "[2026/10/23 11:35:35.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:35.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:35.708] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223808B exceeded limit 512000 to 671431B)",
+        "[2026/10/23 11:35:36.706] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:36.706] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:36.709] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223815B exceeded limit 512000 to 671441B)",
+        "[2026/10/23 11:35:37.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:37.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:37.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223822B exceeded limit 512000 to 671449B)",
+        "[2026/10/23 11:35:38.703] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:38.703] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:38.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223814B exceeded limit 512000 to 671443B)",
+        "[2026/10/23 11:35:39.703] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:39.703] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:39.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223822B exceeded limit 512000 to 671445B)",
+        "[2026/10/23 11:35:40.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:40.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:40.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223810B exceeded limit 512000 to 671432B)",
+        "[2026/10/23 11:35:41.703] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:41.703] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:41.706] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223818B exceeded limit 512000 to 671456B)",
+        "[2026/10/23 11:35:42.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:42.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:42.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223812B exceeded limit 512000 to 671452B)",
+        "[2026/10/23 11:35:43.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:43.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:43.708] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223813B exceeded limit 512000 to 671429B)",
+        "[2026/10/23 11:35:44.704] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:44.704] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)",
+        "[2026/10/23 11:35:44.707] [ warn] [input] tail.0 paused (mem buf overlimit - event of size 223815B exceeded limit 512000 to 671450B)",
+        "[2026/10/23 11:35:45.705] [ info] [input] resume tail.0",
+        "[2026/10/23 11:35:45.705] [ info] [input] tail.0 resume (mem buf overlimit - buf size 0B now below limit 512000B)"
+      ]
+    }
+  ],
+  "at": "2026-10-23T11:36:37.965294+00:00"
+}
